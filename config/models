@@ -1,1 +1,27 @@
- -- By default this file is used in Model.hs (which is imported by Foundation.hs)
+Usuario json
+    login   Text
+    senha   Text
+    deriving Show
+
+Lista json
+    nome    Text
+    total   Double
+    deriving Show
+
+Produto json
+    nome    Text
+    deriving Show
+
+Possui json
+    logincomp   Text
+    usuarioid   UsuarioId
+    listaid     ListaId
+    deriving Show
+
+ItemProduto json
+    vlunitario  Double
+    qtditem     Int
+    descricao   Text Maybe
+    listaid     ListaId
+    produtoid   ProdutoId
+    deriving Show

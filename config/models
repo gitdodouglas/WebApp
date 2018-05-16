@@ -1,7 +1,11 @@
-Usuario json
-    login   Text
-    senha   Text
-    deriving Show
+Usuario              json
+    nome              Text
+    email             Text
+    senha             Text
+    token             Text
+    UniqueEmail       email  
+    UsuarioLogin email senha
+deriving Show
 
 Lista json
     nome    Text

@@ -34,3 +34,4 @@ database:
 
 copyright: Insert copyright statement here
 #analytics: UA-YOURCODE
+# psql -h ec2-50-16-196-238.compute-1.amazonaws.com -U rgbcuaudgtknfl -d dehtl1guotpq5s

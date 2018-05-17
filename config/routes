@@ -5,4 +5,7 @@
 
 / HomeR GET 
 
-/cadastro        CadastroR  POST
+/cadastro                   CadastroR  POST
+
+/produto                    ProdutoR   GET  POST
+/produto/#ProdutoId         ProdEspecR GET  PUT  DELETE

@@ -8,7 +8,11 @@ module Handler.Usuario where
 import Import
 import Network.HTTP.Types.Status
 import Database.Persist.Postgresql
+import Data.Aeson.Types
+import Yesod.Auth.HashDB (setPassword,userPasswordHash, setPasswordHash)
 
+
+{-
 postCadastroR :: Handler Value
 postCadastroR = do
     dadosUsuario <- requireJsonBody :: Handler Usuario
@@ -18,3 +22,11 @@ postCadastroR = do
 
 trocaToken :: Usuario -> Usuario
 trocaToken (Usuario a b c d) = (Usuario a b c "troca")
+-}
+
+postCadastroR :: Handler Value
+postCadastroR = do
+    usu <- requireJsonBody :: Handler Usuario
+    hashUser <- setPassword (usuarioEmail usu) usu
+    usuarioId <- runDB $ insert hashUser
+    sendStatusJSON created201 (object ["resp" .= (usuarioToken hashUser)])

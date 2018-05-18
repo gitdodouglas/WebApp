@@ -10,6 +10,8 @@ module Foundation where
 import Import.NoFoundation
 import Database.Persist.Sql (ConnectionPool, runSqlPool)
 import Yesod.Core.Types     (Logger)
+import Yesod.Auth hiding(LoginR)
+import Yesod.Auth.HashDB (HashDBUser(..))
 
 data App = App
     { appSettings    :: AppSettings
@@ -35,3 +37,7 @@ instance RenderMessage App FormMessage where
 
 instance HasHttpManager App where
     getHttpManager = appHttpManager
+    
+instance HashDBUser Usuario where
+    userPasswordHash = Just . usuarioToken
+    setPasswordHash h p = p { usuarioToken = h }

@@ -15,3 +15,6 @@
 
 /possui                     PossuiR    GET  POST
 /possui/#PossuiId           PossEspecR GET  PUT  DELETE
+
+/item                       ItemR      GET  POST
+/item/#ItemProdutoId        ItemEspecR GET  PUT  DELETE

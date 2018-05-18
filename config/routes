@@ -12,3 +12,6 @@
 
 /lista                      ListaR     GET  POST
 /lista/#ListaId             ListEspecR GET  PUT  DELETE
+
+/possui                     PossuiR    GET  POST
+/possui/#PossuiId           PossEspecR GET  PUT  DELETE

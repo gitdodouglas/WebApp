@@ -5,18 +5,19 @@
 
 / HomeR GET 
 
-/cadastro                       CadastroR       POST
+/cadastro                           CadastroR           POST
 
-/produto                        ProdutoR        GET  POST
-/produto/#ProdutoId             ProdEspecR      GET  PUT  DELETE
+/produto                            ProdutoR            GET  POST
+/produto/#ProdutoId                 ProdEspecR          GET  PUT  DELETE
 
-/lista                          ListaR          GET  POST
-/lista/#ListaId                 ListEspecR      GET  PUT  DELETE
+/lista                              ListaR              GET  POST
+/lista/#ListaId                     ListEspecR          GET  PUT  DELETE
 
-/possui                         PossuiR         GET  POST
-/possui/#PossuiId               PossEspecR      GET  PUT  DELETE
+/possui                             PossuiR             GET  POST
+/possui/#PossuiId                   PossEspecR          GET  PUT  DELETE
 
-/item                           ItemR           GET  POST
-/item/#ItemProdutoId            ItemEspecR      GET  PUT  DELETE
+/item                               ItemR               GET  POST
+/item/#ItemProdutoId                ItemEspecR          GET  PUT  DELETE
 
-/buscar/listas/#UsuarioId       BuscarListasR   GET
+/buscar/listas/#UsuarioId           BuscarListasR       GET
+/buscar/listasc/#Text               BuscarListasCompR   GET

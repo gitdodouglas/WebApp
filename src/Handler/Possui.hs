@@ -9,6 +9,13 @@ import Import
 import Network.HTTP.Types.Status
 import Database.Persist.Postgresql
 
+-- busca todas as listas que foram compartilhadas com o usuário
+getBuscarListasCompR :: Text -> Handler Value
+getBuscarListasCompR email = do
+    listascomp <- runDB $ selectList [PossuiEmailcomp ==. email] []
+    lcompid <- return $ fmap(\xs -> possuiListaid $ entityVal xs) listascomp
+    sendStatusJSON ok200 (object ["resp" .= lcompid])
+
 -- busca todas as listas que o usuário possui
 getBuscarListasR :: UsuarioId -> Handler Value
 getBuscarListasR uid = do

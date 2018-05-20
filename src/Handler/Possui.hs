@@ -9,6 +9,13 @@ import Import
 import Network.HTTP.Types.Status
 import Database.Persist.Postgresql
 
+-- busca todas as listas que o usuário possui
+getBuscarListasR :: UsuarioId -> Handler Value
+getBuscarListasR uid = do
+    listas <- runDB $ selectList [PossuiUsuarioid ==. uid] []
+    lstid <- return $ fmap(\xs -> possuiListaid $ entityVal xs) listas
+    sendStatusJSON ok200 (object ["resp" .= lstid])
+
 -- atualiza todos os campos de um 'possui' pelo id
 putPossEspecR :: PossuiId -> Handler Value
 putPossEspecR pid = do

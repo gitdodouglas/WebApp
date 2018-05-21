@@ -1,9 +1,9 @@
-Usuario               json
-    nome              Text
-    email             Text
-    senha             Text
-    token             Text
-    UniqueEmail       email
+Usuario json
+    nome    Text
+    email   Text
+    senha   Text
+    token   Text
+    UniqueEmail email
     UsuarioLogin email senha
     deriving Show
 
@@ -17,7 +17,7 @@ Produto json
     deriving Show
 
 Possui json
-    logincomp   Text
+    emailcomp   Text
     usuarioid   UsuarioId
     listaid     ListaId
     deriving Show

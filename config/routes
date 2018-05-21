@@ -7,6 +7,8 @@
 
 /cadastro                   CadastroR  POST
 
+/login                      LoginnR     POST
+
 /produto                    ProdutoR   GET  POST
 /produto/#ProdutoId         ProdEspecR GET  PUT  DELETE
 

@@ -6,23 +6,21 @@
 module Handler.Usuario where
 
 import Import
-import Network.HTTP.Types.Status
-import Database.Persist.Postgresql
-import Data.Aeson.Types
-import Yesod.Auth.HashDB (setPassword,userPasswordHash, setPasswordHash)
+import Yesod.Auth.HashDB (setPassword)
 
 
-{-
-postCadastroR :: Handler Value
-postCadastroR = do
-    dadosUsuario <- requireJsonBody :: Handler Usuario
-    hashUser <- return (trocaToken dadosUsuario) -- usar funcao de hash?
-    usuarioId <- runDB $ insert hashUser
-    sendStatusJSON created201 (object ["resp" .= (hashUser)])
+postLoginnR :: Handler Value
+postLoginnR = do
+    (email,senha) <- requireJsonBody :: Handler (Text,Text)
+    maybeUsuario <- runDB $ getBy $ UsuarioLogin email senha
+    case maybeUsuario of
+        Just (Entity uid usuario) -> do
+            newHashUser <- setPassword (usuarioEmail usuario) usuario
+            runDB $ update uid [UsuarioToken =. (usuarioToken newHashUser)]
+            sendStatusJSON ok200 (object ["resp" .= (usuarioToken newHashUser) ])
+        _ -> 
+            sendStatusJSON status404 (object ["resp" .= ("Usuário não cadastrado"::Text)] )
 
-trocaToken :: Usuario -> Usuario
-trocaToken (Usuario a b c d) = (Usuario a b c "troca")
--}
 
 postCadastroR :: Handler Value
 postCadastroR = do

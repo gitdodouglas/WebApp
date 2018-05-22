@@ -13,8 +13,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login() {
-    this.loginService.getLogin('login', 'senha');
+  async login(email, senha) {
+    console.log('email: ', email);
+    console.log('senha: ', senha);
+    const result = await this.loginService.getLogin(email, senha);
+    console.log(result);
   }
 
 }

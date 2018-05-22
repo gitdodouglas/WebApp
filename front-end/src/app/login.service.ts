@@ -6,10 +6,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class LoginService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getLogin(login: string, senha: string) {
-    // return this.http.post<any>('api url',{username:login,password:senha})
+  async getLogin(login: string, senha: string) {
+    return await this.http.post('http://localhost:8080/login', [ login, senha ]).toPromise();
   }
-
 }

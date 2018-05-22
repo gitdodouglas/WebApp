@@ -1,4 +1,4 @@
-<section class="hero is-success is-fullheight">
+<section class="">
   <div class="hero-body">
       <div class="container has-text-centered">
           <div class="column is-4 is-offset-4">
@@ -11,22 +11,22 @@
                   <form>
                       <div class="field">
                           <div class="control">
-                              <input class="input is-large" placeholder="Your Email" autofocus="" type="email">
+                              <input class="input is-large" placeholder="Seu Email" autofocus="" type="email" #inputEmail>
                           </div>
                       </div>
 
                       <div class="field">
                           <div class="control">
-                              <input class="input is-large" placeholder="Your Password" type="password">
+                              <input class="input is-large" placeholder="Your Password" type="password" #inputPassword>
                           </div>
                       </div>
                       <div class="field">
-                          <label class="checkbox">
-            <input type="checkbox">
-            Remember me
-          </label>
+                        <label class="checkbox">
+                        <input type="checkbox">
+                        Remember me
+                        </label>
                       </div>
-                      <button class="button is-block is-info is-large is-fullwidth">Login</button>
+                      <button class="button is-block is-info is-large is-fullwidth" (click)="login(inputEmail.value,inputPassword.value)">Login</button>
                   </form>
               </div>
               <p class="has-text-grey">

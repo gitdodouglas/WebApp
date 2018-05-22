@@ -6,10 +6,14 @@
 module Handler.Usuario where
 
 import Import
+import Handler.Funcs as F
 import Yesod.Auth.HashDB (setPassword)
+---------------------------------------------
+optionsLoginnR :: Handler ()
+optionsLoginnR = anyOriginIn [ F.OPTIONS, F.POST ]
+---------------------------------------------
 
-
-postLoginnR :: Handler Value
+postLoginnR :: Handler Value    
 postLoginnR = do
     (email,senha) <- requireJsonBody :: Handler (Text,Text)
     maybeUsuario <- runDB $ getBy $ UsuarioLogin email senha
@@ -28,3 +32,5 @@ postCadastroR = do
     hashUser <- setPassword (usuarioEmail usu) usu
     usuarioId <- runDB $ insert hashUser
     sendStatusJSON created201 (object ["resp" .= (usuarioToken hashUser)])
+
+

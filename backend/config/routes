@@ -5,7 +5,7 @@
 
 / HomeR GET 
 
-/cadastro                           CadastroR           POST
+/register                           RegisterR           POST
 
 /login                              LoginnR             OPTIONS POST
 

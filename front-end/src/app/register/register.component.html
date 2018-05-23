@@ -9,7 +9,7 @@
                       <img src="https://placehold.it/128x128">
                   </figure>
                   <form>
-                      <div class="field">
+                      <div class="field">                        
                           <div class="control">
                               <input class="input is-large" placeholder="Seu Email" autofocus="" type="email" #inputEmail>
                           </div>
@@ -17,22 +17,20 @@
 
                       <div class="field">
                           <div class="control">
-                              <input class="input is-large" placeholder="sua Senha" type="password" #inputPassword>
+                              <input class="input is-large" placeholder="Sua Senha" type="password" #inputPassword>
                           </div>
                       </div>
                       <div class="field">
-                        <label class="checkbox">
-                        <input type="checkbox">
-                        Remember me
-                        </label>
+                          <div class="control">
+                              <input class="input is-large" placeholder="Seu Nome" type="text" #inputNome>
+                          </div>
                       </div>
-                      <button type="button" class="button is-block is-info is-large is-fullwidth" (click)="login(inputEmail.value,inputPassword.value)">Login</button>
+                      <button type="button" class="button is-block is-info is-large is-fullwidth" (click)="register(inputEmail.value,inputPassword.value,inputNome.value)">Login</button>
                   </form>
               </div>
               <p class="has-text-grey">
-                  <a routerLink="/register">Sign Up</a> &nbsp;·&nbsp;
-                  <a href="../">Forgot Password</a> &nbsp;·&nbsp;
-                  <a href="../">Need Help?</a>
+                <a routerLink="/">Login</a>&nbsp;·&nbsp;
+                <a href="../">Need Help?</a>
               </p>
           </div>
       </div>

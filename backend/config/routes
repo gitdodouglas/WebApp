@@ -5,7 +5,7 @@
 
 / HomeR GET 
 
-/register                           RegisterR           POST
+/register                           RegisterR           OPTIONS POST
 
 /login                              LoginnR             OPTIONS POST
 

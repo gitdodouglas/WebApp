@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     console.log('senha: ', senha);
     const result = await this.loginService.getLogin(email, senha);
     console.log(result['resp']);
-    this.saveInLocal(email, result['resp']);
+    this.saveInLocal('key', result['resp']);
     this.router.navigateByUrl('/menu');
   }
 
@@ -35,5 +35,9 @@ export class LoginComponent implements OnInit {
     this.data[key] = this.storage.get(key);
    }
 
-
+   getFromLocal(key): void {
+    console.log('recieved= key:' + key);
+    this.data[key] = this.storage.get(key);
+    console.log(this.data);
+   }
 }

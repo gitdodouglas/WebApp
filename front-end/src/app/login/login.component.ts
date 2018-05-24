@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { LoginService } from '../login.service';
+import { WebStorageService, LOCAL_STORAGE } from 'angular-webstorage-service';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +10,12 @@ import { LoginService } from '../login.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService) { }
+  public data: any = [];
+
+  constructor(
+    @Inject(LOCAL_STORAGE) private storage: WebStorageService,
+    private loginService: LoginService,
+    private router: Router ) { }
 
   ngOnInit() {
   }
@@ -17,7 +24,16 @@ export class LoginComponent implements OnInit {
     console.log('email: ', email);
     console.log('senha: ', senha);
     const result = await this.loginService.getLogin(email, senha);
-    console.log(result);
+    console.log(result['resp']);
+    this.saveInLocal(email, result['resp']);
+    this.router.navigateByUrl('/menu');
   }
+
+  saveInLocal(key, val): void {
+    console.log('recieved= key:' + key + 'value:' + val);
+    this.storage.set(key, val);
+    this.data[key] = this.storage.get(key);
+   }
+
 
 }

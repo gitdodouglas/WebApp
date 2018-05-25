@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
+import { AuthenticationService } from '../authentication.service'; // colocar em todos os compornentes
 
 @Component({
   selector: 'app-listas',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListasComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authentication: AuthenticationService) { }
 
   ngOnInit() {
+    this.authentication.checkStorage(); // usar essa fucao para checar se esta logado em todos os componentes
   }
 
 }

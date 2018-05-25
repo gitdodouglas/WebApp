@@ -13,4 +13,10 @@ export class LoginService {
     // return await this.http.post('https://reqres.in/api/login', { 'email': login, 'password': senha }).toPromise();
     return await this.http.post('http://localhost:8080/login', [ login, senha ]).toPromise();
   }
+
+  async logout(key: string) {
+    return await this.http.post('http://localhost:8080/logout', { key } ).toPromise();
+  }
+
+
 }

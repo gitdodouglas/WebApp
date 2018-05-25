@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { LoginService } from '../login.service';
 import { WebStorageService, LOCAL_STORAGE } from 'angular-webstorage-service';
 import { RouterModule, Router } from '@angular/router';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -10,10 +11,8 @@ import { RouterModule, Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  public data: any = [];
-
   constructor(
-    @Inject(LOCAL_STORAGE) private storage: WebStorageService,
+    private authentication: AuthenticationService,
     private loginService: LoginService,
     private router: Router ) { }
 
@@ -25,19 +24,9 @@ export class LoginComponent implements OnInit {
     console.log('senha: ', senha);
     const result = await this.loginService.getLogin(email, senha);
     console.log(result['resp']);
-    this.saveInLocal('key', result['resp']);
-    this.router.navigateByUrl('/menu');
+    this.authentication.saveInLocal('key', result['resp']);
+    this.router.navigateByUrl('/listas');
   }
 
-  saveInLocal(key, val): void {
-    console.log('recieved= key:' + key + 'value:' + val);
-    this.storage.set(key, val);
-    this.data[key] = this.storage.get(key);
-   }
 
-   getFromLocal(key): void {
-    console.log('recieved= key:' + key);
-    this.data[key] = this.storage.get(key);
-    console.log(this.data);
-   }
 }

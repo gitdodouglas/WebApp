@@ -23,3 +23,4 @@
 
 /buscar/listas/#UsuarioId           BuscarListasR       GET
 /buscar/listasc/#UsuarioId          BuscarListasCompR   GET
+/buscar/itens/#ListaId              BuscarItensR        GET

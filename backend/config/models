@@ -17,7 +17,7 @@ Produto json
     deriving Show
 
 Possui json
-    emailcomp   Text
+    emailcomp   Text Maybe
     usuarioid   UsuarioId
     listaid     ListaId
     deriving Show

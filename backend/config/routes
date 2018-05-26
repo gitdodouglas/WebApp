@@ -22,4 +22,4 @@
 /item/#ItemProdutoId                ItemEspecR          GET  PUT  DELETE
 
 /buscar/listas/#UsuarioId           BuscarListasR       GET
-/buscar/listasc/#Text               BuscarListasCompR   GET
+/buscar/listasc/#UsuarioId          BuscarListasCompR   GET

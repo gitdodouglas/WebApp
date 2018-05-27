@@ -1,26 +1,27 @@
 /static StaticR Static appStatic
 
-/favicon.ico FaviconR GET
-/robots.txt RobotsR GET
 
 / HomeR GET 
 
-/register                           RegisterR           OPTIONS POST
+/register                           RegisterR       OPTIONS POST
 
-/login                              LoginnR             OPTIONS POST
+/login                              LoginnR         OPTIONS POST
 
-/produto                            ProdutoR            GET  POST
-/produto/#ProdutoId                 ProdEspecR          GET  PUT  DELETE
+/listasUsuario/#UsuarioId           ListasUserR     GET
+/listasCompart/#UsuarioId           ListasCompR     GET
+/itensLista/#ListaId                ItensListaR     GET
 
-/lista/#Text                        ListaR              GET  POST
-/buscaLista/#ListaId                ListEspecR          GET  PUT  DELETE
+/cadastra/lista/#Text               CadListR        POST
+/cadastra/possui                    CadPossR        POST
+/cadastra/item                      CadItemR        POST
+/cadastra/produto                   CadProdR        POST
 
-/possui                             PossuiR             GET  POST
-/possui/#PossuiId                   PossEspecR          GET  PUT  DELETE
+/recupera/lista                     RecListR        GET
+/recupera/possui                    RecPossR        GET
+/recupera/item                      RecItemR        GET
+/recupera/produto                   RecProdR        GET
 
-/item                               ItemR               GET  POST
-/item/#ItemProdutoId                ItemEspecR          GET  PUT  DELETE
-
-/buscar/listas/#UsuarioId           BuscarListasR       GET
-/buscar/listasc/#UsuarioId          BuscarListasCompR   GET
-/buscar/itens/#ListaId              BuscarItensR        GET
+/operacao/lista/#ListaId            OpListR         GET PUT DELETE
+/operacao/possui/#PossuiId          OpPossR         GET PUT DELETE
+/operacao/item/#ItemProdutoId       OpItemR         GET PUT DELETE
+/operacao/produto/#ProdutoId        OpProdR         GET PUT DELETE

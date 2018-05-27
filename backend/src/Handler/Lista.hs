@@ -9,36 +9,56 @@ import Import
 import Network.HTTP.Types.Status
 import Database.Persist.Postgresql
 
+-- busca todas as listas que foram compartilhadas com o usuário
+getListasCompR :: UsuarioId -> Handler Value
+getListasCompR uid = do
+    _ <- runDB $ get404 uid
+    usuario <- runDB $ selectFirst [UsuarioId ==. uid] []
+    emailuser <- return $ fmap(\user -> usuarioEmail $ entityVal user) usuario
+    listascomp <- runDB $ selectList [PossuiEmailcomp ==. emailuser] []
+    listaid <- return $ fmap(\ls -> possuiListaid $ entityVal ls) listascomp
+    lista <- runDB $ selectList [ListaId <-. listaid] [Asc ListaNome]
+    sendStatusJSON ok200 (object ["resp" .= lista])
+
+-- busca todas as listas que o usuário possui
+getListasUserR :: UsuarioId -> Handler Value
+getListasUserR uid = do
+    _ <- runDB $ get404 uid
+    possui <- runDB $ selectList [PossuiUsuarioid ==. uid] []
+    listaid <- return $ fmap(\ls -> possuiListaid $ entityVal ls) possui
+    lista <- runDB $ selectList [ListaId <-. listaid] [Asc ListaNome]
+    sendStatusJSON ok200 (object ["resp" .= lista])
+
 -- atualiza todos os campos de uma lista pelo id
-putListEspecR :: ListaId -> Handler Value
-putListEspecR lid = do
+putOpListR :: ListaId -> Handler Value
+putOpListR lid = do
     _ <- runDB $ get404 lid
     listaNova <- requireJsonBody :: Handler Lista
     runDB $ replace lid listaNova
     sendStatusJSON noContent204 (object [])
 
 -- deleta uma lista pelo id
-deleteListEspecR :: ListaId -> Handler Value
-deleteListEspecR lid = do
+deleteOpListR :: ListaId -> Handler Value
+deleteOpListR lid = do
     _ <- runDB $ get404 lid
     runDB $ delete lid
     sendStatusJSON noContent204 (object [])
 
 -- recupera uma lista pelo id
-getListEspecR :: ListaId -> Handler Value
-getListEspecR lid = do
+getOpListR :: ListaId -> Handler Value
+getOpListR lid = do
     lista <- runDB $ get404 lid
     sendStatusJSON ok200 (object ["resp" .= lista])
 
 -- recupera todas as listas
-getListaR :: Text -> Handler Value
-getListaR token = do
+getRecListR :: Handler Value
+getRecListR = do
     listas <- runDB $ selectList [] [Asc ListaNome]
     sendStatusJSON ok200 (object ["resp" .= listas])
 
--- insere uma lista
-postListaR :: Text -> Handler Value
-postListaR token = do
+-- cadastra uma lista
+postCadListR :: Text -> Handler Value
+postCadListR token = do
     maybeUser <- runDB $ selectFirst [UsuarioToken ==. token] []
     case maybeUser of 
         Just (Entity uid usuario) -> do

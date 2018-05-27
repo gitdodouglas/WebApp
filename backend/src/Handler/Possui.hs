@@ -10,18 +10,24 @@ import Network.HTTP.Types.Status
 import Database.Persist.Postgresql
 
 -- busca todas as listas que foram compartilhadas com o usuário
-getBuscarListasCompR :: Text -> Handler Value
-getBuscarListasCompR email = do
-    listascomp <- runDB $ selectList [PossuiEmailcomp ==. email] []
-    lcompid <- return $ fmap(\xs -> possuiListaid $ entityVal xs) listascomp
-    sendStatusJSON ok200 (object ["resp" .= lcompid])
+getBuscarListasCompR :: UsuarioId -> Handler Value
+getBuscarListasCompR uid = do
+    _ <- runDB $ get404 uid
+    usuario <- runDB $ selectFirst [UsuarioId ==. uid] []
+    emailuser <- return $ fmap(\user -> usuarioEmail $ entityVal user) usuario
+    listascomp <- runDB $ selectList [PossuiEmailcomp ==. emailuser] []
+    listaid <- return $ fmap(\ls -> possuiListaid $ entityVal ls) listascomp
+    lista <- runDB $ selectList [ListaId <-. listaid] [Asc ListaNome]
+    sendStatusJSON ok200 (object ["resp" .= lista])
 
 -- busca todas as listas que o usuário possui
 getBuscarListasR :: UsuarioId -> Handler Value
 getBuscarListasR uid = do
-    listas <- runDB $ selectList [PossuiUsuarioid ==. uid] []
-    lstid <- return $ fmap(\xs -> possuiListaid $ entityVal xs) listas
-    sendStatusJSON ok200 (object ["resp" .= lstid])
+    _ <- runDB $ get404 uid
+    possui <- runDB $ selectList [PossuiUsuarioid ==. uid] []
+    listaid <- return $ fmap(\ls -> possuiListaid $ entityVal ls) possui
+    lista <- runDB $ selectList [ListaId <-. listaid] [Asc ListaNome]
+    sendStatusJSON ok200 (object ["resp" .= lista])
 
 -- atualiza todos os campos de um 'possui' pelo id
 putPossEspecR :: PossuiId -> Handler Value

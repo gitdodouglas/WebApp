@@ -9,6 +9,15 @@ import Import
 import Network.HTTP.Types.Status
 import Database.Persist.Postgresql
 
+-- busca todos os itens de uma lista
+getBuscarItensR :: ListaId -> Handler Value
+getBuscarItensR lid = do
+    _ <- runDB $ get404 lid
+    itemP <- runDB $ selectList [ItemProdutoListaid ==. lid] []
+    prodid <- return $ fmap(\ls -> itemProdutoProdutoid $ entityVal ls) itemP
+    produto <- runDB $ selectList [ProdutoId <-. prodid] []
+    sendStatusJSON ok200 (object ["resp" .= object(["produto" .= produto, "item" .= itemP]) ])
+
 -- atualiza todos os campos de um item de produto pelo id
 putItemEspecR :: ItemProdutoId -> Handler Value
 putItemEspecR ipid = do

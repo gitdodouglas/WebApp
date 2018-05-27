@@ -12,8 +12,3 @@ anyOriginIn methods = do
     addHeader (T.pack "Access-Control-Allow-Origin") (T.pack "*")
     addHeader (T.pack "Access-Control-Allow-Methods") $ T.intercalate (T.pack ", ") Prelude.$ Prelude.map T.pack Prelude.$ Prelude.map Prelude.show methods
     addHeader (T.pack "Access-Control-Allow-Headers") (T.pack "Content-Type")
-
-validateToken :: Text -> UsuarioId
-validateToken token = (usuarioId runDB $ selectList [UsuarioToken ==. token] [])
-
-

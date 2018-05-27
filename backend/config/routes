@@ -12,8 +12,8 @@
 /produto                            ProdutoR            GET  POST
 /produto/#ProdutoId                 ProdEspecR          GET  PUT  DELETE
 
-/lista                              ListaR              GET  POST
-/lista/#ListaId                     ListEspecR          GET  PUT  DELETE
+/lista/#Text                        ListaR              GET  POST
+/buscaLista/#ListaId                ListEspecR          GET  PUT  DELETE
 
 /possui                             PossuiR             GET  POST
 /possui/#PossuiId                   PossEspecR          GET  PUT  DELETE

@@ -31,14 +31,18 @@ getListEspecR lid = do
     sendStatusJSON ok200 (object ["resp" .= lista])
 
 -- recupera todas as listas
-getListaR :: Handler Value
-getListaR = do
+getListaR :: Text -> Handler Value
+getListaR token = do
     listas <- runDB $ selectList [] [Asc ListaNome]
     sendStatusJSON ok200 (object ["resp" .= listas])
 
 -- insere uma lista
-postListaR :: Handler Value
-postListaR = do
-    lista <- requireJsonBody :: Handler Lista
-    lid <- runDB $ insert lista
-    sendStatusJSON created201 (object ["resp" .= fromSqlKey lid])
+postListaR :: Text -> Handler Value
+postListaR token = do
+    maybeUser <- runDB $ selectFirst [UsuarioToken ==. token] []
+    case maybeUser of 
+        Just (Entity uid usuario) -> do
+            lista <- requireJsonBody :: Handler Lista
+            lid <- runDB $ insert lista
+            sendStatusJSON created201 (object ["resp" .= fromSqlKey lid])
+        _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])

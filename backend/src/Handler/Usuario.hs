@@ -18,6 +18,9 @@ optionsLoginnR = anyOriginIn [ F.OPTIONS, F.POST ]
 optionsRegisterR :: Handler ()
 optionsRegisterR = anyOriginIn [ F.OPTIONS, F.POST ]
 ----------------------------------------------------
+optionsLogouttR :: Text -> Handler ()
+optionsLogouttR _ = anyOriginIn [ F.OPTIONS, F.POST ]
+----------------------------------------------------
 
 postLoginnR :: Handler Value    
 postLoginnR = do
@@ -42,3 +45,14 @@ postRegisterR = do
     sendStatusJSON created201 (object ["resp" .= (usuarioToken hashUser)])
 
 
+postLogouttR :: Text -> Handler Value
+postLogouttR token = do 
+    anyOriginIn [ F.OPTIONS, F.POST ]
+    maybeUser <- runDB $ selectFirst [UsuarioToken ==. token] []
+    case maybeUser of 
+        Just (Entity uid usuario) -> do
+            newHashUser <- setPassword (usuarioEmail usuario) usuario
+            runDB $ update uid [UsuarioToken =. (usuarioToken newHashUser)]
+            sendStatusJSON ok200 (object ["resp" .= ("usuario deslogado"::Text)])
+        _ -> 
+            sendStatusJSON status404 (object ["resp" .= ("Usuário não cadastrado"::Text)] )

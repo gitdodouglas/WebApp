@@ -6,8 +6,9 @@
 /register                           RegisterR       OPTIONS POST
 
 /login                              LoginnR         OPTIONS POST
+/logout/#Text                       LogouttR        OPTIONS POST
 
-/listasUsuario/#UsuarioId           ListasUserR     GET
+/listasUsuario/#Text                ListasUserR     OPTIONS GET -- requisição da tela de listas | cadastrar listas para testar
 /listasCompart/#UsuarioId           ListasCompR     GET
 /itensLista/#ListaId                ItensListaR     GET
 

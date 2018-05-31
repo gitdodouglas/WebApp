@@ -15,7 +15,8 @@ export class LoginService {
   }
 
   async logout(key: string) {
-    return await this.http.post('http://localhost:8080/logout', { key } ).toPromise();
+    const deslogado = await this.http.post('http://localhost:8080/logout', { key } ).toPromise();
+    // se deslogou entao redirecionar pro login
   }
 
 

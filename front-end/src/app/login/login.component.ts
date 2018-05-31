@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { LoginService } from '../login.service';
+import { LoginService } from '../services/login.service';
 import { WebStorageService, LOCAL_STORAGE } from 'angular-webstorage-service';
 import { RouterModule, Router } from '@angular/router';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-login',

@@ -6,8 +6,16 @@
 module Handler.Lista where
 
 import Import
+import Handler.Funcs as F
 import Network.HTTP.Types.Status
 import Database.Persist.Postgresql
+
+--------------------------------------
+optionsListasUserR :: Text -> Handler ()
+optionsListasUserR _ = anyOriginIn [ F.OPTIONS, F.GET ]
+--------------------------------------
+
+
 
 -- busca todas as listas que foram compartilhadas com o usuário
 getListasCompR :: UsuarioId -> Handler Value
@@ -21,13 +29,18 @@ getListasCompR uid = do
     sendStatusJSON ok200 (object ["resp" .= lista])
 
 -- busca todas as listas que o usuário possui
-getListasUserR :: UsuarioId -> Handler Value
-getListasUserR uid = do
-    _ <- runDB $ get404 uid
-    possui <- runDB $ selectList [PossuiUsuarioid ==. uid] []
-    listaid <- return $ fmap(\ls -> possuiListaid $ entityVal ls) possui
-    lista <- runDB $ selectList [ListaId <-. listaid] [Asc ListaNome]
-    sendStatusJSON ok200 (object ["resp" .= lista])
+getListasUserR :: Text -> Handler Value
+getListasUserR token = do
+    anyOriginIn [ F.OPTIONS, F.GET ]
+    maybeUser <- runDB $ selectFirst [UsuarioToken ==. token] []
+    case maybeUser of 
+        Just (Entity uid usuario) -> do
+            _ <- runDB $ get404 uid
+            possui <- runDB $ selectList [PossuiUsuarioid ==. uid] []
+            listaid <- return $ fmap(\ls -> possuiListaid $ entityVal ls) possui
+            lista <- runDB $ selectList [ListaId <-. listaid] [Asc ListaNome]
+            sendStatusJSON ok200 (object ["resp" .= lista])
+        _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
 
 -- atualiza todos os campos de uma lista pelo id
 putOpListR :: ListaId -> Handler Value

@@ -1,5 +1,9 @@
 <app-menu></app-menu>
-
-<p>
-  listas works!
-</p>
+<h2>Minhas Listas</h2>
+<ul>
+    <li *ngFor='let lista of listas' (click)='onSelect(lista)'>
+        <span>{{lista.id}}</span>
+        <span>{{lista.nome}}</span>
+        <span>{{lista.total}}</span>
+    </li>
+</ul>

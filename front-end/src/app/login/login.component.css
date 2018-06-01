@@ -1,0 +1,36 @@
+.acesso {
+    width: 100%;
+    height: 100%;
+    background-color: #ff491f;
+}
+.login {
+    padding: 3% 5%;
+    margin-top: 70px;
+    background-color: #fff;
+    box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
+}
+.logo {
+    width: 45%;
+    padding: 5px 10px;
+    margin: 0 auto 15% auto;
+    background-color: #ff491f;
+    color: #fff;
+}
+button {
+    background-color: #ff491f;
+    color: #fff;
+}
+button:hover {
+    color: #fff;
+}
+.button:active, .button.is-active, .button:focus, .button.is-focused {
+    border-color: #ff491f;
+    color: #fff;
+}
+.input:focus, .input.is-focused, .input:active, .input.is-active, .textarea:focus, .textarea.is-focused, .textarea:active, .textarea.is-active {
+    border-color: #fff;
+    box-shadow: 0 0 0 0.125em rgba(255, 0, 0, 0.5);
+}
+.button:focus:not(:active), .button.is-focused:not(:active) {
+    box-shadow: 0 0 0 0.125em rgba(255, 255, 255, 0.5);
+}

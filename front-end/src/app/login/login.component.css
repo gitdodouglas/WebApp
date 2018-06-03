@@ -3,9 +3,15 @@
     height: 100%;
     background-color: #ff491f;
 }
+@media only screen and (max-width: 768px) {
+    .login {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
 .login {
-    padding: 3% 5%;
-    margin-top: 70px;
+    padding: 10%;
+    margin-top: 80px;
     background-color: #fff;
     box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
 }

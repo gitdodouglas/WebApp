@@ -38,3 +38,10 @@
     right: 25px;
     color: #ff491f;
 }
+.modal a {
+    color: #ff491f;
+}
+.input:focus, .input.is-focused, .input:active, .input.is-active, .textarea:focus, .textarea.is-focused, .textarea:active, .textarea.is-active {
+    border-color: #fff;
+    box-shadow: 0 0 0 0.125em rgba(255, 0, 0, 0.5);
+}

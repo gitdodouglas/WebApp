@@ -28,4 +28,10 @@ export class ListasComponent implements OnInit {
 
   }
 
+  isModalActive: boolean = false;
+
+  toggleModal() {
+      this.isModalActive = !this.isModalActive;
+  }
+
 }

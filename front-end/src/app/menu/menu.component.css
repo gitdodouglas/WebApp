@@ -1,0 +1,11 @@
+.cabecalho{
+    width: 100%;
+    background-color: #ff491f;
+}
+.cabecalho h1{
+    color: #fff;
+    font-size: 20pt;
+    font-style: italic;
+    text-align: center;
+    padding-top: 10px;
+}

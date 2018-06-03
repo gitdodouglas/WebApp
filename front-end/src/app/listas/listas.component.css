@@ -1,0 +1,40 @@
+.listas {
+    padding-top: 50px;
+}
+.listas ul li {
+    width: 100%;
+    float: left;
+    list-style-type: none;
+    margin: 0 0 15px 0;
+}
+.listas ul li a {
+    font-size: 12pt;
+    font-style: italic;
+    color: #ff8e74;
+    text-decoration: none;
+}
+.listas h2 {
+    color: #ff491f;
+    font-weight: bold;
+}
+.espelho-lista {
+    padding: 5px;
+    margin: 0 auto;
+    margin-left: 15%;
+    border-bottom: 2px solid #f8cbad;
+}
+.icone svg {
+    float: left;
+    width: 12%;
+    height: 60px;
+    padding-top: 10px;
+    color: #ff491f;
+}
+.add-lista a {
+    position: fixed;
+    width: 45px;
+    height: 45px;
+    bottom: 25px;
+    right: 25px;
+    color: #ff491f;
+}

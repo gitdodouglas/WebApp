@@ -8,8 +8,8 @@
 /login                              LoginnR         OPTIONS POST
 /logout/#Text                       LogouttR        OPTIONS POST
 
-/listasUsuario                      ListasUserR     OPTIONS GET -- requisição da tela de listas | cadastrar listas para testar
-/listasCompart/#UsuarioId           ListasCompR     GET
+/listasUsuario                      ListasUserR     OPTIONS GET -- requisição da tela de listas
+/listasCompart                      ListasCompR     OPTIONS GET -- requisição da tela de listas compartilhadas
 /itensLista/#ListaId                ItensListaR     GET
 
 /cadastra/lista/#Text               CadListR        POST

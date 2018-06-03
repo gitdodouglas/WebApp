@@ -15,20 +15,29 @@ import qualified Data.Maybe as M
 --------------------------------------
 optionsListasUserR :: Handler ()
 optionsListasUserR = anyOriginIn [ F.OPTIONS, F.GET ]
+
+optionsListasCompR :: Handler ()
+optionsListasCompR = anyOriginIn [ F.OPTIONS, F.GET ]
 --------------------------------------
 
 
 
 -- busca todas as listas que foram compartilhadas com o usuário
-getListasCompR :: UsuarioId -> Handler Value
-getListasCompR uid = do
-    _ <- runDB $ get404 uid
-    usuario <- runDB $ selectFirst [UsuarioId ==. uid] []
-    emailuser <- return $ fmap(\user -> usuarioEmail $ entityVal user) usuario
-    listascomp <- runDB $ selectList [PossuiEmailcomp ==. emailuser] []
-    listaid <- return $ fmap(\ls -> possuiListaid $ entityVal ls) listascomp
-    lista <- runDB $ selectList [ListaId <-. listaid] [Asc ListaNome]
-    sendStatusJSON ok200 (object ["resp" .= lista])
+getListasCompR :: Handler Value
+getListasCompR = do
+    anyOriginIn [ F.OPTIONS, F.GET ]
+    token <- getTokenHeader
+    maybeUser <- runDB $ selectFirst [UsuarioToken ==. token] []
+    case maybeUser of
+        Just (Entity uid usuario) -> do
+            _ <- runDB $ get404 uid
+            objuser <- runDB $ selectFirst [UsuarioId ==. uid] []
+            emailuser <- return $ fmap(\user -> usuarioEmail $ entityVal user) objuser
+            listascomp <- runDB $ selectList [PossuiEmailcomp ==. emailuser] []
+            listaid <- return $ fmap(\ls -> possuiListaid $ entityVal ls) listascomp
+            lista <- runDB $ selectList [ListaId <-. listaid] [Asc ListaNome]
+            sendStatusJSON ok200 (object ["resp" .= lista])
+        _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
 
 -- busca todas as listas que o usuário possui
 getListasUserR :: Handler Value

@@ -1,4 +1,3 @@
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -8,11 +7,14 @@ module Handler.Lista where
 import Import
 import Handler.Funcs as F
 import Network.HTTP.Types.Status
+import Network.Wai as NW
 import Database.Persist.Postgresql
+import qualified Data.Text as T
+import qualified Data.Maybe as M
 
 --------------------------------------
-optionsListasUserR :: Text -> Handler ()
-optionsListasUserR _ = anyOriginIn [ F.OPTIONS, F.GET ]
+optionsListasUserR :: Handler ()
+optionsListasUserR = anyOriginIn [ F.OPTIONS, F.GET ]
 --------------------------------------
 
 
@@ -29,11 +31,12 @@ getListasCompR uid = do
     sendStatusJSON ok200 (object ["resp" .= lista])
 
 -- busca todas as listas que o usuário possui
-getListasUserR :: Text -> Handler Value
-getListasUserR token = do
+getListasUserR :: Handler Value
+getListasUserR = do
     anyOriginIn [ F.OPTIONS, F.GET ]
+    token <- getTokenHeader
     maybeUser <- runDB $ selectFirst [UsuarioToken ==. token] []
-    case maybeUser of 
+    case maybeUser of
         Just (Entity uid usuario) -> do
             _ <- runDB $ get404 uid
             possui <- runDB $ selectList [PossuiUsuarioid ==. uid] []
@@ -73,7 +76,7 @@ getRecListR = do
 postCadListR :: Text -> Handler Value
 postCadListR token = do
     maybeUser <- runDB $ selectFirst [UsuarioToken ==. token] []
-    case maybeUser of 
+    case maybeUser of
         Just (Entity uid usuario) -> do
             lista <- requireJsonBody :: Handler Lista
             lid <- runDB $ insert lista

@@ -10,7 +10,7 @@ import { MenuComponent } from './menu/menu.component';
 import { ListasComponent } from './listas/listas.component';
 import { CompartilhadasComponent } from './compartilhadas/compartilhadas.component';
 import { StorageServiceModule } from 'angular-webstorage-service';
-import { Interceptor } from './interceptir.module';
+import { Interceptor } from './interceptor.module';
 
 @NgModule({
   declarations: [

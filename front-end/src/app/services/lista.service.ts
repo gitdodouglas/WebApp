@@ -13,7 +13,7 @@ export class ListaService {
   constructor(private http: HttpClient) { }
 
   getListas(key: string): Observable<Lista[]> {
-    const listas = this.http.get<Lista[]>('http://localhost:8080/listasUsuario/' + key);
+    const listas = this.http.get<Lista[]>('http://localhost:8080/listasUsuario');
     return listas;
   //  return LISTAS;
   }

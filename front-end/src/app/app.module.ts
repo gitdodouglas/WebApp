@@ -10,6 +10,7 @@ import { MenuComponent } from './menu/menu.component';
 import { ListasComponent } from './listas/listas.component';
 import { CompartilhadasComponent } from './compartilhadas/compartilhadas.component';
 import { StorageServiceModule } from 'angular-webstorage-service';
+import { Interceptor } from './interceptir.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { StorageServiceModule } from 'angular-webstorage-service';
     HttpClientModule,
     AppRoutingModule,
     StorageServiceModule,
+    Interceptor,
   ],
   providers: [],
   bootstrap: [AppComponent]

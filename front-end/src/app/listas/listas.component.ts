@@ -12,6 +12,7 @@ import { Lista } from '../lista';
 export class ListasComponent implements OnInit {
 
   listas: Lista[];
+  isModalActive = false;
 
   constructor(private authentication: AuthenticationService,
               private listaService: ListaService
@@ -28,10 +29,16 @@ export class ListasComponent implements OnInit {
 
   }
 
-  isModalActive: boolean = false;
-
   toggleModal() {
       this.isModalActive = !this.isModalActive;
+  }
+
+  salvarLista(nomeLista) {
+    // validar
+    this.listaService.createLista(nomeLista.trim())
+      .subscribe(lista => { console.log(lista); this.listas.push(lista); });
+
+    this.toggleModal();
   }
 
 }

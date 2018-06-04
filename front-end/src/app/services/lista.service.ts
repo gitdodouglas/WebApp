@@ -18,12 +18,9 @@ export class ListaService {
   //  return LISTAS;
   }
 
-/*
-   getListas(key: string) {
-    const aaa = this.http.get<Lista[]>('http://localhost:8080/listasUsuario/' + key).toPromise();
-    console.log(aaa);
-    return aaa;
+  createLista(nomeLista: string): Observable<Lista> {
+    const listas = this.http.post<Lista>('http://localhost:8080/cadastra/lista', { 'nome': nomeLista, 'total': 0.0 });
+    return listas;
   }
-*/
 
 }

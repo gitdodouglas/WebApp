@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     private router: Router ) { }
 
   ngOnInit() {
+    // executar funcao que checa o storage, se tiver token redirecionar para menu principal
   }
 
   async login(email, senha) {

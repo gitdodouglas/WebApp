@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
     console.log();
     console.log();
     const result = await this.registerService.postCadastro(email, senha, nome);
-    console.log(result);
+    console.log(result); // colocar o token no storage
   }
 
 }

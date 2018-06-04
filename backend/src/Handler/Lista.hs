@@ -18,6 +18,9 @@ optionsListasUserR = anyOriginIn [ F.OPTIONS, F.GET ]
 
 optionsListasCompR :: Handler ()
 optionsListasCompR = anyOriginIn [ F.OPTIONS, F.GET ]
+
+optionsCadListR :: Handler()
+optionsCadListR = anyOriginIn [ F.OPTIONS, F.POST ]
 --------------------------------------
 
 
@@ -82,12 +85,21 @@ getRecListR = do
     sendStatusJSON ok200 (object ["resp" .= listas])
 
 -- cadastra uma lista
-postCadListR :: Text -> Handler Value
-postCadListR token = do
+postCadListR :: Handler Value
+postCadListR = do
+    anyOriginIn [ F.OPTIONS, F.POST ]
+    token <- getTokenHeader
     maybeUser <- runDB $ selectFirst [UsuarioToken ==. token] []
     case maybeUser of
         Just (Entity uid usuario) -> do
             lista <- requireJsonBody :: Handler Lista
-            lid <- runDB $ insert lista
-            sendStatusJSON created201 (object ["resp" .= fromSqlKey lid])
+            lid <- runDB $ insert lista -- inseriu na tabela lista
+            pid <- runDB $ insert (Possui (tiraEmail usuario) uid lid)
+            sendStatusJSON created201 (object ["id" .= fromSqlKey lid, "nome" .= (tiraNome lista), "total" .= ("0"::Text)])
         _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
+
+tiraNome :: Lista -> Text
+tiraNome (Lista nome total) = nome
+
+tiraEmail :: Usuario -> Maybe Text
+tiraEmail (Usuario nome email senha token) = Just email

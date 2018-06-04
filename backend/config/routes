@@ -12,7 +12,7 @@
 /listasCompart                      ListasCompR     OPTIONS GET -- requisição da tela de listas compartilhadas
 /itensLista/#ListaId                ItensListaR     GET
 
-/cadastra/lista/#Text               CadListR        POST
+/cadastra/lista                     CadListR        OPTIONS POST
 /cadastra/possui                    CadPossR        POST
 /cadastra/item                      CadItemR        POST
 /cadastra/produto                   CadProdR        POST

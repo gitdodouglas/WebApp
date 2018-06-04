@@ -1,5 +1,9 @@
+.menu {
+    -webkit-box-shadow: 0 2px 3px 0 #ff8e74;
+    box-shadow: 0 2px 3px 0 #ff8e74;
+}
 .listas {
-    padding-top: 50px;
+    padding-top: 25px;
 }
 .listas ul li {
     width: 100%;

@@ -94,8 +94,8 @@ postCadListR = do
         Just (Entity uid usuario) -> do
             lista <- requireJsonBody :: Handler Lista
             lid <- runDB $ insert lista -- inseriu na tabela lista
-            pid <- runDB $ insert (Possui (tiraEmail usuario) uid lid)
-            sendStatusJSON created201 (object ["id" .= fromSqlKey lid, "nome" .= (tiraNome lista), "total" .= ("0"::Text)])
+            pid <- runDB $ insert (Possui Nothing uid lid)
+            sendStatusJSON created201 (object ["id" .= fromSqlKey lid, "nome" .= (tiraNome lista), "total" .= ("0.00"::Text)])
         _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
 
 tiraNome :: Lista -> Text

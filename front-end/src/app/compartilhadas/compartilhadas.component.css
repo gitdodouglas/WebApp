@@ -34,3 +34,11 @@
     padding-top: 10px;
     color: #ff491f;
 }
+.add-lista a {
+    position: fixed;
+    width: 45px;
+    height: 45px;
+    bottom: 25px;
+    right: 25px;
+    color: #ff491f;
+}

@@ -8,5 +8,28 @@
     font-style: italic;
     font-weight: bold;
     text-align: center;
-    padding: 10px 0;
+    padding: 10px 0 5px 0;
+}
+.menu{
+    width: 100%;
+    height: 32px;
+    padding-bottom: 4px;
+    background: #ff491f;
+    -webkit-box-shadow: 0 2px 3px 0 #ff8e74;
+    box-shadow: 0 2px 3px 0 #ff8e74;
+}
+.menu ul li{
+    float: left;
+    list-style-type: none;
+}
+.menu ul li a{
+    width: 100%;
+    font-size: 12pt;
+    color: #ffa28d;
+    padding: 5px 30px;
+    text-decoration: none;
+}
+.menu ul li .ativo{
+    color: #fff;
+    border-bottom: 3px solid #fff;
 }

@@ -1,6 +1,20 @@
 html, body {
     height: 100%;
 }
+.opcoes svg {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    width: 25px;
+    height: 25px;
+    color: #fff;
+}
+.modal-opcoes ul li {
+    padding: 15px 0;
+}
+.modal-opcoes ul li a {
+    color: #ff491f;
+}
 .listas {
     padding-top: 25px;
 }

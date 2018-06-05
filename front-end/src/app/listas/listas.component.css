@@ -1,9 +1,9 @@
 .add-lista a {
     position: fixed;
-    width: 45px;
-    height: 45px;
-    bottom: 25px;
     right: 25px;
+    bottom: 25px;
+    width: 45px;
+    height: 45px;    
     color: #ff491f;
 }
 .modal a {

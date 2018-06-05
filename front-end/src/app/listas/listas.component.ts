@@ -3,6 +3,7 @@ import { RouterModule, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service'; // colocar em todos os compornentes
 import { ListaService } from '../services/lista.service';
 import { Lista } from '../lista';
+import { OrderPipe } from 'ngx-order-pipe';
 
 @Component({
   selector: 'app-listas',
@@ -12,10 +13,14 @@ import { Lista } from '../lista';
 export class ListasComponent implements OnInit {
 
   listas: Lista[];
-  isModalActive = false;
+  isModalActiveAdd = false;
+  isModalActiveOpcoes = false;
+  order: string = 'nome';
+  reverse: boolean = false;
 
   constructor(private authentication: AuthenticationService,
-              private listaService: ListaService
+              private listaService: ListaService,
+              private orderPipe: OrderPipe
   ) { }
 
   ngOnInit() {
@@ -29,8 +34,12 @@ export class ListasComponent implements OnInit {
 
   }
 
-  toggleModal() {
-      this.isModalActive = !this.isModalActive;
+  toggleModalAdd() {
+      this.isModalActiveAdd = !this.isModalActiveAdd;
+  }
+
+  toggleModalOpcoes() {
+      this.isModalActiveOpcoes = !this.isModalActiveOpcoes;
   }
 
   salvarLista(nomeLista) {
@@ -38,7 +47,15 @@ export class ListasComponent implements OnInit {
     this.listaService.createLista(nomeLista.trim())
       .subscribe(lista => { console.log(lista); this.listas.push(lista); });
 
-    this.toggleModal();
+    this.toggleModalAdd();
+  }
+
+  setOrder(value: string) {
+    if (this.order === value) {
+      this.reverse = !this.reverse;
+    }
+
+    this.order = value;
   }
 
 }

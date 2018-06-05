@@ -12,6 +12,7 @@ import { CompartilhadasComponent } from './compartilhadas/compartilhadas.compone
 import { StorageServiceModule } from 'angular-webstorage-service';
 import { Interceptor } from './interceptor.module';
 import { ItensComponent } from './itens/itens.component';
+import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ItensComponent } from './itens/itens.component';
     AppRoutingModule,
     StorageServiceModule,
     Interceptor,
+    OrderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

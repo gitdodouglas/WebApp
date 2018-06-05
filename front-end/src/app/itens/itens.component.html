@@ -1,5 +1,10 @@
 <h1>Itens da lista</h1>
-
+<div *ngIf="lista">
+  <h2>id: {{ lista.id}}</h2>
+  <h2>Nome: {{ lista.nome}}</h2>
+  <h2>Total: {{ lista.total}}</h2>
+</div>
+<br>
 <li *ngFor='let item of itens'>
   <span>{{item.nome}}</span>
   <span>{{item.vlunitario}}</span>

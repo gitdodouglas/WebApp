@@ -3,7 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { ItensService } from '../services/itens.service';
+import { ListaService } from '../services/lista.service';
 import { Item } from '../item';
+import { Lista } from '../lista';
 
 @Component({
   selector: 'app-itens',
@@ -12,15 +14,18 @@ import { Item } from '../item';
 })
 export class ItensComponent implements OnInit {
 
+  lista: Lista;
   itens: Item[];
 
   constructor(
     private route: ActivatedRoute,
     private itensService: ItensService,
-    private location: Location
+    private location: Location,
+    private listaService: ListaService
   ) { }
 
   ngOnInit() {
+    this.getLista();
     this.getItens();
   }
 
@@ -28,6 +33,12 @@ export class ItensComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.itensService.getItens(id)
       .subscribe(itens => this.itens = itens['resp']['produtoLista']);
+  }
+
+  getLista(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.listaService.getLista(id)
+      .subscribe(lista => { lista['resp']['id'] = id; this.lista = lista['resp']; });
   }
 
 }

@@ -13,14 +13,15 @@ export class ListaService {
   constructor(private http: HttpClient) { }
 
   getListas(key: string): Observable<Lista[]> {
-    const listas = this.http.get<Lista[]>('http://localhost:8080/listasUsuario');
-    return listas;
-  //  return LISTAS;
+    return this.http.get<Lista[]>('http://localhost:8080/listasUsuario');
   }
 
   createLista(nomeLista: string): Observable<Lista> {
-    const listas = this.http.post<Lista>('http://localhost:8080/cadastra/lista', { 'nome': nomeLista, 'total': 0.0 });
-    return listas;
+    return this.http.post<Lista>('http://localhost:8080/cadastra/lista', { 'nome': nomeLista, 'total': 0.0 });
+  }
+
+  getLista(id: number): Observable<Lista> {
+    return this.http.get<Lista>('http://localhost:8080/operacao/lista/' + id);
   }
 
 }

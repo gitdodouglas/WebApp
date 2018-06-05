@@ -21,6 +21,9 @@ optionsListasCompR = anyOriginIn [ F.OPTIONS, F.GET ]
 
 optionsCadListR :: Handler()
 optionsCadListR = anyOriginIn [ F.OPTIONS, F.POST ]
+
+optionsOpListR :: ListaId -> Handler ()
+optionsOpListR _ = anyOriginIn [ F.OPTIONS, F.POST, F.GET, F.PUT, F.DELETE ]
 --------------------------------------
 
 
@@ -75,14 +78,21 @@ deleteOpListR lid = do
 -- recupera uma lista pelo id
 getOpListR :: ListaId -> Handler Value
 getOpListR lid = do
-    lista <- runDB $ get404 lid
-    sendStatusJSON ok200 (object ["resp" .= lista])
+    token <- getTokenHeader
+    maybeUser <- runDB $ selectFirst [UsuarioToken ==. token] []
+    case maybeUser of
+        Just (Entity uid usuario) -> do
+            anyOriginIn [ F.OPTIONS, F.GET ]
+            lista <- runDB $ get404 lid
+            sendStatusJSON ok200 (object ["resp" .= lista])
+        _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
 
 -- recupera todas as listas
 getRecListR :: Handler Value
 getRecListR = do
     listas <- runDB $ selectList [] [Asc ListaNome]
     sendStatusJSON ok200 (object ["resp" .= listas])
+    
 
 -- cadastra uma lista
 postCadListR :: Handler Value

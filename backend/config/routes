@@ -10,7 +10,7 @@
 
 /listasUsuario                      ListasUserR     OPTIONS GET -- requisição da tela de listas
 /listasCompart                      ListasCompR     OPTIONS GET -- requisição da tela de listas compartilhadas
-/itensLista/#ListaId                ItensListaR     GET
+/itensLista/#ListaId                ItensListaR     OPTIONS GET -- busca todos os itens de uma lista
 
 /cadastra/lista                     CadListR        OPTIONS POST
 /cadastra/possui                    CadPossR        POST

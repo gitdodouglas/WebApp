@@ -1,24 +1,35 @@
 html, body {
     height: 100%;
 }
-.menu{
-    width: 100%;
-    height: 32px;
-    padding-bottom: 4px;
-    background: #ff491f;
+.listas {
+    padding-top: 25px;
 }
-.menu ul li{
+.listas ul li {
+    width: 100%;
     float: left;
     list-style-type: none;
+    margin: 0 0 15px 0;
 }
-.menu ul li a{
-    width: 100%;
+.listas ul li a {
     font-size: 12pt;
-    color: #ffa28d;
-    padding: 5px 30px;
+    font-style: italic;
+    color: #ff8e74;
     text-decoration: none;
 }
-.menu ul li .ativo{
-    color: #fff;
-    border-bottom: 3px solid #fff;
+.listas h2 {
+    color: #ff491f;
+    font-weight: bold;
+}
+.espelho-lista {
+    padding: 5px;
+    margin: 0 auto;
+    margin-left: 15%;
+    border-bottom: 2px solid #f8cbad;
+}
+.icone svg {
+    float: left;
+    width: 12%;
+    height: 60px;
+    padding-top: 10px;
+    color: #ff491f;
 }

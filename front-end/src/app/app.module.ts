@@ -11,6 +11,7 @@ import { ListasComponent } from './listas/listas.component';
 import { CompartilhadasComponent } from './compartilhadas/compartilhadas.component';
 import { StorageServiceModule } from 'angular-webstorage-service';
 import { Interceptor } from './interceptor.module';
+import { ItensComponent } from './itens/itens.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { Interceptor } from './interceptor.module';
     RegisterComponent,
     MenuComponent,
     ListasComponent,
-    CompartilhadasComponent
+    CompartilhadasComponent,
+    ItensComponent
   ],
   imports: [
     BrowserModule,

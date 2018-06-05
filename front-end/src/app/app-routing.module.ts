@@ -5,6 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { MenuComponent } from './menu/menu.component';
 import { CompartilhadasComponent } from './compartilhadas/compartilhadas.component';
 import { ListasComponent } from './listas/listas.component';
+import { ItensComponent } from './itens/itens.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'compartilhadas', component: CompartilhadasComponent },
-  { path: 'listas', component: ListasComponent }
+  { path: 'listas', component: ListasComponent },
+  { path: 'itens/:id', component: ItensComponent }
 ];
 
 

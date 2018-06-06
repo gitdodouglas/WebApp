@@ -1,10 +1,11 @@
-.add-lista a {
+.add-lista {
     position: fixed;
     right: 25px;
     bottom: 25px;
     width: 45px;
     height: 45px;    
     color: #ff491f;
+    cursor: pointer;
 }
 .modal a {
     color: #ff491f;

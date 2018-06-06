@@ -1,0 +1,70 @@
+.menu-itens {
+    width: 100%;
+    min-height: 46px;
+    padding: 5px 0;
+    background-color: #ff491f;
+    -webkit-box-shadow: 0 2px 3px 0 #ff8e74;
+    box-shadow: 0 2px 3px 0 #ff8e74;
+}
+.voltar svg {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 25px;
+    height: 25px;
+    color: #fff;
+    cursor: pointer;
+}
+.nome-lista h1 {
+    color: #fff;
+    font-size: 18pt;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+}
+.opcoes svg {
+    top: 10px;
+}
+.espelho-lista {
+    color: #ff8e74;
+}
+.remove svg {
+    float: right;
+    width: 12%;
+    height: 35px;
+    padding: 5px 0;
+    margin-top: -45px;
+    color: #ff491f;
+}
+.barra-total{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ff491f;
+}
+.barra-total h1{
+    color: #fff;
+    font-size: 18pt;
+    font-style: italic;
+    text-align: center;
+    padding: 5px;
+}
+.add-lista {
+    position: fixed;
+    right: 25px;
+    bottom: 75px;
+    width: 45px;
+    height: 45px;    
+    color: #ff491f;
+    cursor: pointer;
+}
+.modal a {
+    color: #ff491f;
+}
+.box input, .select {
+    margin: 5px 0;
+}
+.input:focus, .input.is-focused, .input:active, .input.is-active, .textarea:focus, .textarea.is-focused, .textarea:active, .textarea.is-active, select:focus, select.is-focused, select:active, select.is-active {
+    border-color: #fff;
+    box-shadow: 0 0 0 0.125em rgba(255, 0, 0, 0.5);
+}

@@ -16,6 +16,10 @@ export class ItensComponent implements OnInit {
 
   lista: Lista;
   itens: Item[];
+  isModalActiveAdd = false;
+  isModalActiveOpcoes = false;
+  isModalActiveNome = false;
+  isModalActiveShare = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,6 +43,26 @@ export class ItensComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.listaService.getLista(id)
       .subscribe(lista => { lista['resp']['id'] = id; this.lista = lista['resp']; });
+  }
+
+  toggleModalAdd() {
+      this.isModalActiveAdd = !this.isModalActiveAdd;
+  }
+
+  toggleModalOpcoes() {
+      this.isModalActiveOpcoes = !this.isModalActiveOpcoes;
+  }
+
+  toggleModalNome() {
+      this.isModalActiveNome = !this.isModalActiveNome;
+  }
+
+  toggleModalShare() {
+      this.isModalActiveShare = !this.isModalActiveShare;
+  }
+
+  locationBack() {
+    this.location.back();
   }
 
 }

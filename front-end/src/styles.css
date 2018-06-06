@@ -8,6 +8,7 @@ html, body {
     width: 25px;
     height: 25px;
     color: #fff;
+    cursor: pointer;
 }
 .modal-opcoes ul li {
     padding: 15px 0;

@@ -21,7 +21,7 @@
 /recupera/lista                     RecListR        GET
 /recupera/possui                    RecPossR        GET
 /recupera/item                      RecItemR        GET
-/recupera/produto                   RecProdR        OPTIONS GET
+/recupera/produto/#ListaId          RecProdR        OPTIONS GET
 
 /operacao/lista/#ListaId            OpListR         OPTIONS GET PUT DELETE -- pega uma lista especifica
 /operacao/possui/#PossuiId          OpPossR         GET PUT DELETE

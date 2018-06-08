@@ -14,8 +14,8 @@ import Database.Persist.Postgresql
 optionsCadItemProdR :: Handler ()
 optionsCadItemProdR = anyOriginIn [ F.OPTIONS, F.POST ]
 
-optionsRecProdR :: Handler ()
-optionsRecProdR = anyOriginIn [ F.OPTIONS, F.GET ]
+optionsRecProdR :: ListaId -> Handler ()
+optionsRecProdR _ = anyOriginIn [ F.OPTIONS, F.GET ]
 -------------------------------------------------------
 
 postCadItemProdR :: Handler Value
@@ -54,11 +54,14 @@ getOpProdR pid = do
     sendStatusJSON ok200 (object ["resp" .= produto])
 
 -- recupera todos os produtos
-getRecProdR :: Handler Value ------------------------------------------------------------------
-getRecProdR = do
+getRecProdR :: ListaId -> Handler Value --recebe o id da lista?
+getRecProdR lid = do
     anyOriginIn [ F.OPTIONS, F.GET ]
-    produtos <- runDB $ selectList [] [Asc ProdutoNome]
-    sendStatusJSON ok200 (object ["resp" .= produtos])
+    itensProd <- runDB $ selectList [ItemProdutoListaid ==. lid] []
+    idProds <- return $ fmap(\itpr -> itemProdutoProdutoid $ entityVal itpr) itensProd
+    prodsN <- runDB $ selectList [ProdutoId /<-. idProds] []
+    -- produtos <- runDB $ selectList [] [Asc ProdutoNome]
+    sendStatusJSON ok200 (object ["resp" .= prodsN])
 
 -- cadastra um produto
 postCadProdR :: Handler Value

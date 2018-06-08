@@ -16,8 +16,8 @@ export class ItensService {
     return this.http.get<Item[]>('http://localhost:8080/itensLista/' + idLista);
   }
 
-  getProdutos(): Observable<Produto[]> {
-    return this.http.get<Produto[]>('http://localhost:8080/recupera/produto');
+  getProdutos(idlista): Observable<Produto[]> {
+    return this.http.get<Produto[]>('http://localhost:8080/recupera/produto/' + idlista);
   }
 
   colocaProdutoLista(vlunitario, qtditem, descricao, listaid, produtoid ): Observable<Item> {

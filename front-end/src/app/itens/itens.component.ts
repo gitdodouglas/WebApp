@@ -34,7 +34,7 @@ export class ItensComponent implements OnInit {
   ngOnInit() {
     this.getLista();
     this.getItens();
-    this.getProdutos();
+    // this.getProdutos();
   }
 
   getItens(): void {
@@ -50,7 +50,9 @@ export class ItensComponent implements OnInit {
   }
 
   getProdutos(): void {
-    this.itensService.getProdutos()
+    const idLista = document.querySelector('#idLista').textContent;
+    console.log(idLista);
+    this.itensService.getProdutos(idLista)
       .subscribe(produtos => {console.log(produtos); this.produtos = produtos['resp']; });
   }
 
@@ -62,12 +64,13 @@ export class ItensComponent implements OnInit {
     const idLista = document.querySelector('#idLista').textContent;
     this.itensService.colocaProdutoLista(vl, qtd, desc, idLista, this.idProduto)
       .subscribe(produtoNovo => {console.log(produtoNovo); this.itens.push(produtoNovo); });
+    this.toggleModalAdd();
   }
 
   removeItem(item: Item): void {
     console.log(item);
     this.itens = this.itens.filter(i => i !== item);
-    this.itensService.deleteItem(item).subscribe();
+    this.itensService.deleteItem(item).subscribe(); // arrumar o JSON para encaixar certo na classe ITEM
   }
 
 

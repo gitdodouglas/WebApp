@@ -6,8 +6,31 @@
 module Handler.Produto where
 
 import Import
+import Handler.Funcs as F
 import Network.HTTP.Types.Status
 import Database.Persist.Postgresql
+
+-------------------------------------------------------
+optionsCadItemProdR :: Handler ()
+optionsCadItemProdR = anyOriginIn [ F.OPTIONS, F.POST ]
+
+optionsRecProdR :: Handler ()
+optionsRecProdR = anyOriginIn [ F.OPTIONS, F.GET ]
+-------------------------------------------------------
+
+postCadItemProdR :: Handler Value
+postCadItemProdR = do
+    anyOriginIn [ F.OPTIONS, F.GET ]
+    token <- getTokenHeader
+    maybeUser <- runDB $ selectFirst [UsuarioToken ==. token] []
+    case maybeUser of
+        Just (Entity uid usuario) -> do
+            itemProduto <- requireJsonBody :: Handler ItemProduto
+            pid <- runDB $ insert itemProduto
+            dataProd <- runDB $ selectFirst [ProdutoId ==. (pegaIdProduto itemProduto)] []
+            sendStatusJSON created201 (object ["resp" .= dataProd])
+        _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
+
 
 -- atualiza todos os campos de um produto pelo id
 putOpProdR :: ProdutoId -> Handler Value
@@ -31,8 +54,9 @@ getOpProdR pid = do
     sendStatusJSON ok200 (object ["resp" .= produto])
 
 -- recupera todos os produtos
-getRecProdR :: Handler Value
+getRecProdR :: Handler Value ------------------------------------------------------------------
 getRecProdR = do
+    anyOriginIn [ F.OPTIONS, F.GET ]
     produtos <- runDB $ selectList [] [Asc ProdutoNome]
     sendStatusJSON ok200 (object ["resp" .= produtos])
 
@@ -42,3 +66,6 @@ postCadProdR = do
     produto <- requireJsonBody :: Handler Produto
     pid <- runDB $ insert produto
     sendStatusJSON created201 (object ["resp" .= fromSqlKey pid])
+
+pegaIdProduto:: ItemProduto -> ProdutoId
+pegaIdProduto (ItemProduto _ _ _ _ pid) = pid

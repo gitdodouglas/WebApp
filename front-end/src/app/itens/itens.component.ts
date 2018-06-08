@@ -6,6 +6,7 @@ import { ItensService } from '../services/itens.service';
 import { ListaService } from '../services/lista.service';
 import { Item } from '../item';
 import { Lista } from '../lista';
+import { Produto } from '../produto';
 
 @Component({
   selector: 'app-itens',
@@ -16,10 +17,12 @@ export class ItensComponent implements OnInit {
 
   lista: Lista;
   itens: Item[];
+  produtos: Produto[];
   isModalActiveAdd = false;
   isModalActiveOpcoes = false;
   isModalActiveNome = false;
   isModalActiveShare = false;
+  idProduto: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,12 +34,13 @@ export class ItensComponent implements OnInit {
   ngOnInit() {
     this.getLista();
     this.getItens();
+    this.getProdutos();
   }
 
   getItens(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.itensService.getItens(id)
-      .subscribe(itens => this.itens = itens['resp']['produtoLista']);
+      .subscribe(itens => {console.log(itens); this.itens = itens['resp']['produtoLista']; });
   }
 
   getLista(): void {
@@ -44,6 +48,28 @@ export class ItensComponent implements OnInit {
     this.listaService.getLista(id)
       .subscribe(lista => { lista['resp']['id'] = id; this.lista = lista['resp']; });
   }
+
+  getProdutos(): void {
+    this.itensService.getProdutos()
+      .subscribe(produtos => {console.log(produtos); this.produtos = produtos['resp']; });
+  }
+
+  pegaId(idProduto): void {
+    this.idProduto = idProduto;
+  }
+
+  adicionaProduto(qtd, vl, desc) {
+    const idLista = document.querySelector('#idLista').textContent;
+    this.itensService.colocaProdutoLista(vl, qtd, desc, idLista, this.idProduto)
+      .subscribe(produtoNovo => {console.log(produtoNovo); this.itens.push(produtoNovo); });
+  }
+
+  removeItem(item: Item): void {
+    console.log(item);
+    this.itens = this.itens.filter(i => i !== item);
+    this.itensService.deleteItem(item).subscribe();
+  }
+
 
   toggleModalAdd() {
       this.isModalActiveAdd = !this.isModalActiveAdd;

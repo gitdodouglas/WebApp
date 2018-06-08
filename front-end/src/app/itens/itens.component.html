@@ -6,6 +6,7 @@
             </div>
             <div class="nome-lista" *ngIf="lista">
                 <h1>{{lista.nome}}</h1>
+                <span id="idLista" style="visibility: hidden"> {{lista.id}} </span>
             </div>
             <div class="opcoes" (click)="toggleModalOpcoes()">
                 <svg aria-hidden="true" data-prefix="far" data-icon="ellipsis-v" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" class="svg-inline--fa fa-ellipsis-v fa-w-4 fa-7x"><path fill="currentColor" d="M64 208c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48 21.5-48 48-48zM16 104c0 26.5 21.5 48 48 48s48-21.5 48-48-21.5-48-48-48-48 21.5-48 48zm0 304c0 26.5 21.5 48 48 48s48-21.5 48-48-21.5-48-48-48-48 21.5-48 48z" class=""></path></svg>
@@ -23,8 +24,9 @@
                     <div class="espelho-lista">
                         <h2>{{item.nome}}</h2>
                         <p>{{item.qtditem}} x R$ {{item.vlunitario}} = R$ {{item.vlunitario * item.qtditem}}</p>
+                        <span id="idLista" style="visibility: hidden" #spanlistaId> {{lista.id}} </span>
                     </div>
-                    <div class="remove">
+                    <div class="remove" (click)="removeItem(item)">
                         <a>
                             <svg aria-hidden="true" data-prefix="far" data-icon="minus-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-minus-circle fa-w-16 fa-7x"><path fill="currentColor" d="M140 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12H140zm364-28c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-48 0c0-110.5-89.5-200-200-200S56 145.5 56 256s89.5 200 200 200 200-89.5 200-200z" class=""></path></svg>
                         </a>
@@ -48,19 +50,17 @@
             <div class="box">
                 <div class="card-content">
                     <div class="select is-medium">
-                        <select>
-                            <option>Escolha um produto</option>
-                            <option>Produto 1</option>
-                            <option>Produto 2</option>
+                        <select (change)="pegaId($event.target.value)"> <!-- ng* for com produtos cadastrados-->
+                            <option *ngFor="let produto of produtos" [value]="produto.id" >{{ produto.id }} {{ produto.nome }}</option>
                         </select>
                     </div>
                     <input type="number" class="input is-medium" placeholder="Quantidade" #inputItemQtde><br>
                     <input type="number" class="input is-medium" placeholder="Valor (R$)" #inputItemValor>
-                    <input type="hidden" value="desc" #inputItemDesc>
+                    <input type="text" value="" #inputItemDesc>
                 </div>
                 <footer class="card-footer">
                     <a class="card-footer-item" (click)="toggleModalAdd()">Cancelar</a>
-                    <a class="card-footer-item">Adicionar</a>
+                    <a class="card-footer-item" (click)="adicionaProduto(inputItemQtde.value, inputItemValor.value, inputItemDesc.value)">Adicionar</a>
                 </footer>
             </div>
         </div>

@@ -15,8 +15,8 @@ export class ListasComponent implements OnInit {
   listas: Lista[];
   isModalActiveAdd = false;
   isModalActiveOpcoes = false;
-  order: string = 'nome';
-  reverse: boolean = false;
+  order = 'nome';
+  reverse = false;
 
   constructor(private authentication: AuthenticationService,
               private listaService: ListaService,

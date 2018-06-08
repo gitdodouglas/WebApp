@@ -16,13 +16,14 @@
 /cadastra/possui                    CadPossR        POST
 /cadastra/item                      CadItemR        POST
 /cadastra/produto                   CadProdR        POST
+/cadastra/itemProduto               CadItemProdR    OPTIONS POST -- cadastra um produto em uma lista de um usuario especifico
 
 /recupera/lista                     RecListR        GET
 /recupera/possui                    RecPossR        GET
 /recupera/item                      RecItemR        GET
-/recupera/produto                   RecProdR        GET
+/recupera/produto                   RecProdR        OPTIONS GET
 
 /operacao/lista/#ListaId            OpListR         OPTIONS GET PUT DELETE -- pega uma lista especifica
 /operacao/possui/#PossuiId          OpPossR         GET PUT DELETE
-/operacao/item/#ItemProdutoId       OpItemR         GET PUT DELETE
+/operacao/item/#ListaId/#ProdutoId  OpItemR         OPTIONS DELETE --
 /operacao/produto/#ProdutoId        OpProdR         GET PUT DELETE

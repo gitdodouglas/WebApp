@@ -29,9 +29,9 @@ getItensListaR lid = do
     case maybeUser of
         Just (Entity uid usuario) -> do
             _ <- runDB $ get404 lid
-            itemP <- runDB $ selectList [ItemProdutoListaid ==. lid] []
+            itemP <- runDB $ selectList [ItemProdutoListaid ==. lid] [Asc ItemProdutoProdutoid]
             prodid <- return $ map (\ls -> itemProdutoProdutoid $ entityVal ls) itemP
-            produto <- runDB $ selectList [ProdutoId <-. prodid] []
+            produto <- runDB $ selectList [ProdutoId <-. prodid] [Asc ProdutoId]
             sendStatusJSON ok200 (object ["resp" .= object(["produtoLista" .= (zipWith unificaItemProduto (map entityVal itemP) (map entityVal produto))])])
         _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
 

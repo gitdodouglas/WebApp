@@ -6,7 +6,7 @@
             </div>
             <div class="nome-lista" *ngIf="lista">
                 <h1>{{lista.nome}}</h1>
-                <span id="idLista" style="visibility: hidden">{{lista.id}}</span>
+                <span id="idLista">{{lista.id}}</span>
             </div>
             <div class="opcoes" (click)="toggleModalOpcoes()">
                 <svg aria-hidden="true" data-prefix="far" data-icon="ellipsis-v" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" class="svg-inline--fa fa-ellipsis-v fa-w-4 fa-7x"><path fill="currentColor" d="M64 208c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48 21.5-48 48-48zM16 104c0 26.5 21.5 48 48 48s48-21.5 48-48-21.5-48-48-48-48 21.5-48 48zm0 304c0 26.5 21.5 48 48 48s48-21.5 48-48-21.5-48-48-48-48 21.5-48 48z" class=""></path></svg>
@@ -24,7 +24,6 @@
                     <div class="espelho-lista">
                         <h2>{{item.nome}}</h2>
                         <p>{{item.qtditem}} x R$ {{item.vlunitario}} = R$ {{item.vlunitario * item.qtditem}}</p>
-                        <span id="idLista" style="visibility: hidden" #spanlistaId> {{lista.id}} </span>
                     </div>
                     <div class="remove" (click)="removeItem(item)">
                         <a>
@@ -51,16 +50,17 @@
                 <div class="card-content">
                     <div class="select is-medium">
                         <select (change)="pegaId($event.target.value)"> <!-- ng* for com produtos cadastrados-->
-                            <option *ngFor="let produto of produtos" [value]="produto.id" >{{ produto.id }} {{ produto.nome }}</option>
+                            <option>Selecione um produto</option>
+                            <option *ngFor="let produto of produtos" [value]="produto.id">{{produto.nome}}</option>
                         </select>
                     </div>
                     <input type="number" class="input is-medium" placeholder="Quantidade" #inputItemQtde><br>
                     <input type="number" class="input is-medium" placeholder="Valor (R$)" #inputItemValor>
-                    <input type="text" value="" #inputItemDesc>
+                    <input type="hidden" class="input is-medium" placeholder="Descrição" value="desc" #inputItemDesc>
                 </div>
                 <footer class="card-footer">
                     <a class="card-footer-item" (click)="toggleModalAdd()">Cancelar</a>
-                    <a class="card-footer-item" (click)="adicionaProduto(inputItemQtde.value, inputItemValor.value, inputItemDesc.value)">Adicionar</a>
+                    <a class="card-footer-item" (click)="adicionaProduto(inputItemQtde.value, inputItemValor.value, inputItemDesc.value);">Adicionar</a>
                 </footer>
             </div>
         </div>

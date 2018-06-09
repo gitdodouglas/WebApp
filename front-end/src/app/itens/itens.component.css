@@ -1,4 +1,7 @@
 .menu-itens {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     min-height: 46px;
     padding: 5px 0;
@@ -24,6 +27,10 @@
 }
 .opcoes svg {
     top: 10px;
+}
+.listas {
+    padding-top: 75px;
+    padding-bottom: 110px;
 }
 .espelho-lista {
     color: #ff8e74;
@@ -67,4 +74,7 @@
 .input:focus, .input.is-focused, .input:active, .input.is-active, .textarea:focus, .textarea.is-focused, .textarea:active, .textarea.is-active, select:focus, select.is-focused, select:active, select.is-active {
     border-color: #fff;
     box-shadow: 0 0 0 0.125em rgba(255, 0, 0, 0.5);
+}
+#idLista {
+    display: none;
 }

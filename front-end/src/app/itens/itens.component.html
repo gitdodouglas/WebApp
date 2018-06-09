@@ -23,7 +23,7 @@
                     </div>
                     <div class="espelho-lista">
                         <h2>{{item.nome}}</h2>
-                        <p>{{item.qtditem}} x R$ {{item.vlunitario}} = R$ {{item.vlunitario * item.qtditem}}</p>
+                        <p>{{item.qtditem}} x {{item.vlunitario | currency:'BRL':'R$ ':'.2'}} = {{item.vlunitario * item.qtditem | currency:'BRL':'R$ ':'.2'}}</p>
                     </div>
                     <div class="remove" (click)="removeItem(item)">
                         <a>
@@ -36,7 +36,7 @@
     </div>
 
     <div class="barra-total">
-        <h1>Valor total: R$</h1>
+        <h1>Valor total: <span *ngIf="itens">{{getTotal() | currency:'BRL':'R$ ':'.2'}}</span></h1>
     </div>
 
     <div class="add-lista" (click)="toggleModalAdd()" (click)="getProdutos()">

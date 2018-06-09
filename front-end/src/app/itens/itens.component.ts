@@ -9,6 +9,7 @@ import { Lista } from '../lista';
 import { Produto } from '../produto';
 import { OrderPipe } from 'ngx-order-pipe';
 
+
 @Component({
   selector: 'app-itens',
   templateUrl: './itens.component.html',
@@ -102,8 +103,15 @@ export class ItensComponent implements OnInit {
     if (this.order === value) {
       this.reverse = !this.reverse;
     }
-
     this.order = value;
+  }
+
+  getTotal() {
+    var total = 0;
+    this.itens.forEach((item) => {
+      total += item.vlunitario * item.qtditem;
+    });
+    return total;
   }
 
 }

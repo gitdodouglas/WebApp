@@ -30,7 +30,6 @@ export class CompartilhadasComponent implements OnInit {
   getListas(): void {
     this.compartilhadasService.getListas(this.authentication.getFromLocal('key'))
       .subscribe(listaas => {console.log(listaas['resp']); this.listas = listaas['resp']; });
-
   }
 
   toggleModalOpcoes() {
@@ -41,7 +40,6 @@ export class CompartilhadasComponent implements OnInit {
     if (this.order === value) {
       this.reverse = !this.reverse;
     }
-
     this.order = value;
   }
 

@@ -14,8 +14,8 @@ export class CompartilhadasComponent implements OnInit {
 
   listas: Compartilhada[];
   isModalActiveOpcoes = false;
-  order: string = 'nome';
-  reverse: boolean = false;
+  order = 'nome';
+  reverse = false;
 
   constructor(private authentication: AuthenticationService,
               private compartilhadasService: CompartilhadasService,

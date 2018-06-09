@@ -20,7 +20,7 @@ export class ItensService {
     return this.http.get<Produto[]>('http://localhost:8080/recupera/produto/' + idlista);
   }
 
-  colocaProdutoLista(vlunitario, qtditem, descricao, listaid, produtoid ): Observable<Item> {
+  colocaProdutoLista(vlunitario, qtditem, descricao, listaid, produtoid): Observable<Item> {
     // tslint:disable-next-line:max-line-length
     const data = '{"vlunitario":' + vlunitario + ', "qtditem":' + qtditem + ', "descricao":"' + descricao + '","listaid":' + listaid + ', "produtoid":' + produtoid + ' }';
     console.log(data);

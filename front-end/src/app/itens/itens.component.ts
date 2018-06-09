@@ -7,6 +7,7 @@ import { ListaService } from '../services/lista.service';
 import { Item } from '../item';
 import { Lista } from '../lista';
 import { Produto } from '../produto';
+import { OrderPipe } from 'ngx-order-pipe';
 
 @Component({
   selector: 'app-itens',
@@ -23,12 +24,15 @@ export class ItensComponent implements OnInit {
   isModalActiveNome = false;
   isModalActiveShare = false;
   idProduto: number;
+  order = 'nome';
+  reverse = false;
 
   constructor(
     private route: ActivatedRoute,
     private itensService: ItensService,
     private location: Location,
-    private listaService: ListaService
+    private listaService: ListaService,
+    private orderPipe: OrderPipe
   ) { }
 
   ngOnInit() {
@@ -63,7 +67,7 @@ export class ItensComponent implements OnInit {
   adicionaProduto(qtd, vl, desc) {
     const idLista = document.querySelector('#idLista').textContent;
     this.itensService.colocaProdutoLista(vl, qtd, desc, idLista, this.idProduto)
-      .subscribe(produtoNovo => {console.log(produtoNovo); this.itens.push(produtoNovo); });
+      .subscribe(produtoNovo => {console.log(produtoNovo); this.itens.push(produtoNovo['resp'][0]); });
     this.toggleModalAdd();
   }
 
@@ -92,6 +96,14 @@ export class ItensComponent implements OnInit {
 
   locationBack() {
     this.location.back();
+  }
+
+  setOrder(value: string) {
+    if (this.order === value) {
+      this.reverse = !this.reverse;
+    }
+
+    this.order = value;
   }
 
 }

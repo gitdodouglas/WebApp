@@ -49,7 +49,7 @@
             <div class="box">
                 <div class="card-content">
                     <div class="select is-medium">
-                        <select (change)="pegaId($event.target.value)"> <!-- ng* for com produtos cadastrados-->
+                        <select (change)="pegaId($event.target.value)" #selectProduto> <!-- ng* for com produtos cadastrados-->
                             <option>Selecione um produto</option>
                             <option *ngFor="let produto of produtos" [value]="produto.id">{{produto.nome}}</option>
                         </select>
@@ -60,7 +60,7 @@
                 </div>
                 <footer class="card-footer">
                     <a class="card-footer-item" (click)="toggleModalAdd()">Cancelar</a>
-                    <a class="card-footer-item" (click)="adicionaProduto(inputItemQtde.value, inputItemValor.value, inputItemDesc.value);">Adicionar</a>
+                    <a class="card-footer-item" (click)="adicionaProduto(inputItemQtde.value, inputItemValor.value, inputItemDesc.value); selectProduto.value='Selecione um produto'; inputItemQtde.value =''; inputItemValor.value =''">Adicionar</a>
                 </footer>
             </div>
         </div>

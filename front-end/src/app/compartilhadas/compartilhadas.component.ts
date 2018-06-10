@@ -14,8 +14,8 @@ export class CompartilhadasComponent implements OnInit {
 
   listas: Compartilhada[];
   isModalActiveOpcoes = false;
-  order: string = 'nome';
-  reverse: boolean = false;
+  order = 'nome';
+  reverse = false;
 
   constructor(private authentication: AuthenticationService,
               private compartilhadasService: CompartilhadasService,
@@ -30,7 +30,6 @@ export class CompartilhadasComponent implements OnInit {
   getListas(): void {
     this.compartilhadasService.getListas(this.authentication.getFromLocal('key'))
       .subscribe(listaas => {console.log(listaas['resp']); this.listas = listaas['resp']; });
-
   }
 
   toggleModalOpcoes() {
@@ -41,7 +40,6 @@ export class CompartilhadasComponent implements OnInit {
     if (this.order === value) {
       this.reverse = !this.reverse;
     }
-
     this.order = value;
   }
 

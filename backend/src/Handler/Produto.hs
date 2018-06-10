@@ -27,8 +27,10 @@ postCadItemProdR = do
         Just (Entity uid usuario) -> do
             itemProduto <- requireJsonBody :: Handler ItemProduto
             pid <- runDB $ insert itemProduto
-            dataProd <- runDB $ selectFirst [ProdutoId ==. (pegaIdProduto itemProduto)] []
-            sendStatusJSON created201 (object ["resp" .= dataProd])
+            itemP <- runDB $ selectList [ItemProdutoId ==. pid] []
+            prodid <- return $ map (\ls -> itemProdutoProdutoid $ entityVal ls) itemP
+            produto <- runDB $ selectList [ProdutoId <-. prodid] []
+            sendStatusJSON ok200 (object ["resp" .= (zipWith unificaItemProduto (map entityVal itemP) (map entityVal produto))])
         _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
 
 
@@ -72,3 +74,18 @@ postCadProdR = do
 
 pegaIdProduto:: ItemProduto -> ProdutoId
 pegaIdProduto (ItemProduto _ _ _ _ pid) = pid
+
+data ItemProd = ItemProd {
+    nome::Text,
+    valor::Double,
+    qtItem::Int,
+    listaid::ListaId,
+    produtoid::ProdutoId
+    } deriving Show
+
+unificaItemProduto :: ItemProduto -> Produto -> ItemProd
+unificaItemProduto (ItemProduto vluni qti _ lid pid) (Produto nome) = (ItemProd nome vluni qti lid pid)
+
+instance ToJSON ItemProd where
+    toJSON (ItemProd nome vluni qti lid pid) =
+        object ["nome" .= nome, "vlunitario" .= vluni, "qtditem" .= qti, "listaId" .= lid, "produtoId" .= pid]

@@ -20,7 +20,8 @@ export class ListasComponent implements OnInit {
 
   constructor(private authentication: AuthenticationService,
               private listaService: ListaService,
-              private orderPipe: OrderPipe
+              private orderPipe: OrderPipe,
+              private router: Router
   ) { }
 
   ngOnInit() {
@@ -31,7 +32,6 @@ export class ListasComponent implements OnInit {
   getListas(): void {
     this.listaService.getListas(this.authentication.getFromLocal('key'))
       .subscribe(listaas => {console.log(listaas['resp']); this.listas = listaas['resp']; });
-
   }
 
   toggleModalAdd() {
@@ -45,8 +45,7 @@ export class ListasComponent implements OnInit {
   salvarLista(nomeLista) {
     // validar
     this.listaService.createLista(nomeLista.trim())
-      .subscribe(lista => { console.log(lista); this.listas.push(lista); });
-
+      .subscribe(lista => { console.log(lista); this.listas.push(lista); this.router.navigate(['/itens/' + lista.id]);});
     this.toggleModalAdd();
   }
 
@@ -54,7 +53,6 @@ export class ListasComponent implements OnInit {
     if (this.order === value) {
       this.reverse = !this.reverse;
     }
-
     this.order = value;
   }
 

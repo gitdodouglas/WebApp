@@ -12,7 +12,7 @@
                     </div>
                     <div class="espelho-lista">
                         <h2>{{lista.nome}}</h2>
-                        <p>Valor total: R$ {{lista.total}}</p>
+                        <p>Valor total: {{lista.total | currency:'BRL':'R$ ':'.2'}}</p>
                     </div>
                 </a>
             </li>

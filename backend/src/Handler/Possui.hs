@@ -25,7 +25,7 @@ postCadCompR listaid email = do
         Just (Entity uid usuario) -> do
             possui <- runDB $ selectFirst [PossuiListaid ==. listaid, PossuiUsuarioid ==. uid] []
             pss <- runDB $ replace (entityKey (M.fromJust possui)) (Possui (Just email) uid listaid)
-            sendStatusJSON noContent204 (object [])
+            sendStatusJSON ok200 (object [ "resp" .= ("compartilhada com sucesso"::Text)])
         _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
 
 -- atualiza todos os campos de um 'possui' pelo id

@@ -20,8 +20,8 @@ export class ItensService {
     return this.http.get<Produto[]>('http://localhost:8080/recupera/produto/' + idlista);
   }
 
-  compartilha(email, listaid): void {
-    this.http.post('http://localhost:8080/cadastra/cLista/' + listaid + '/' + email, {});
+  async compartilha(email, listaid) {
+    return await this.http.post('http://localhost:8080/cLista/' + listaid + '/' + email, {}).toPromise();
   }
 
   colocaProdutoLista(vlunitario, qtditem, descricao, listaid, produtoid ): Observable<Item> {

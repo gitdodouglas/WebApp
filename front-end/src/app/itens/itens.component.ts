@@ -78,9 +78,11 @@ export class ItensComponent implements OnInit {
     this.itensService.deleteItem(item).subscribe(); // arrumar o JSON para encaixar certo na classe ITEM
   }
 
-  compartilharLista(email): void {
+  async compartilharLista(email) {
     const idLista = document.querySelector('#idLista').textContent;
-    this.itensService.compartilha(email, idLista);
+    const result = await this.itensService.compartilha(email, idLista);
+    alert(result['resp']);
+    this.toggleModalShare();
   }
 
   toggleModalAdd() {
@@ -111,7 +113,7 @@ export class ItensComponent implements OnInit {
   }
 
   getTotal() {
-    var total = 0;
+    let total = 0;
     this.itens.forEach((item) => {
       total += item.vlunitario * item.qtditem;
     });

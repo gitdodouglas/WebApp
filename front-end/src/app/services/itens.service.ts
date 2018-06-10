@@ -20,6 +20,10 @@ export class ItensService {
     return this.http.get<Produto[]>('http://localhost:8080/recupera/produto/' + idlista);
   }
 
+  compartilha(email, listaid): void {
+    this.http.post('http://localhost:8080/cadastra/cLista/' + listaid + '/' + email, {});
+  }
+
   colocaProdutoLista(vlunitario, qtditem, descricao, listaid, produtoid ): Observable<Item> {
     // tslint:disable-next-line:max-line-length
     const data = '{"vlunitario":' + vlunitario + ', "qtditem":' + qtditem + ', "descricao":"' + descricao + '","listaid":' + listaid + ', "produtoid":' + produtoid + ' }';

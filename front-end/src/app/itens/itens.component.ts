@@ -73,6 +73,10 @@ export class ItensComponent implements OnInit {
     this.itensService.deleteItem(item).subscribe(); // arrumar o JSON para encaixar certo na classe ITEM
   }
 
+  compartilharLista(email): void {
+    const idLista = document.querySelector('#idLista').textContent;
+    this.itensService.compartilha(email, idLista);
+  }
 
   toggleModalAdd() {
       this.isModalActiveAdd = !this.isModalActiveAdd;

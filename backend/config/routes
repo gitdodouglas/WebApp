@@ -6,12 +6,13 @@
 /register                           RegisterR       OPTIONS POST
 
 /login                              LoginnR         OPTIONS POST
-/logout/#Text                       LogouttR        OPTIONS POST
+/logout                             LogouttR        OPTIONS POST
 
 /listasUsuario                      ListasUserR     OPTIONS GET -- requisição da tela de listas
 /listasCompart                      ListasCompR     OPTIONS GET -- requisição da tela de listas compartilhadas
 /itensLista/#ListaId                ItensListaR     OPTIONS GET -- busca todos os itens de uma lista
 
+/cLista/#ListaId/#Text              CadCompR        OPTIONS POST 
 /cadastra/lista                     CadListR        OPTIONS POST
 /cadastra/possui                    CadPossR        POST
 /cadastra/item                      CadItemR        POST

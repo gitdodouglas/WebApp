@@ -18,8 +18,8 @@ optionsLoginnR = anyOriginIn [ F.OPTIONS, F.POST ]
 optionsRegisterR :: Handler ()
 optionsRegisterR = anyOriginIn [ F.OPTIONS, F.POST ]
 ----------------------------------------------------
-optionsLogouttR :: Text -> Handler ()
-optionsLogouttR _ = anyOriginIn [ F.OPTIONS, F.POST ]
+optionsLogouttR :: Handler ()
+optionsLogouttR = anyOriginIn [ F.OPTIONS, F.POST ]
 ----------------------------------------------------
 
 postLoginnR :: Handler Value    
@@ -45,8 +45,9 @@ postRegisterR = do
     sendStatusJSON created201 (object ["resp" .= (usuarioToken hashUser)])
 
 
-postLogouttR :: Text -> Handler Value
-postLogouttR token = do 
+postLogouttR :: Handler Value
+postLogouttR = do 
+    token <- getTokenHeader
     anyOriginIn [ F.OPTIONS, F.POST ]
     maybeUser <- runDB $ selectFirst [UsuarioToken ==. token] []
     case maybeUser of 

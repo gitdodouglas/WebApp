@@ -9,7 +9,6 @@ import { Lista } from '../lista';
 import { Produto } from '../produto';
 import { OrderPipe } from 'ngx-order-pipe';
 
-
 @Component({
   selector: 'app-itens',
   templateUrl: './itens.component.html',
@@ -24,6 +23,7 @@ export class ItensComponent implements OnInit {
   isModalActiveOpcoes = false;
   isModalActiveNome = false;
   isModalActiveShare = false;
+  isModalActiveSuccess = false;
   idProduto: number;
   order = 'nome';
   reverse = false;
@@ -81,8 +81,10 @@ export class ItensComponent implements OnInit {
   async compartilharLista(email) {
     const idLista = document.querySelector('#idLista').textContent;
     const result = await this.itensService.compartilha(email, idLista);
-    alert(result['resp']);
-    this.toggleModalShare();
+    if(result['resp'] === 'compartilhada com sucesso') {
+      this.toggleModalShare();
+      this.toggleModalSuccess();
+    }
   }
 
 
@@ -106,6 +108,10 @@ export class ItensComponent implements OnInit {
 
   toggleModalShare() {
       this.isModalActiveShare = !this.isModalActiveShare;
+  }
+
+  toggleModalSuccess() {
+      this.isModalActiveSuccess = !this.isModalActiveSuccess;
   }
 
   locationBack() {

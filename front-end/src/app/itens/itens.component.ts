@@ -81,19 +81,21 @@ export class ItensComponent implements OnInit {
   async compartilharLista(email) {
     const idLista = document.querySelector('#idLista').textContent;
     const result = await this.itensService.compartilha(email, idLista);
-    if(result['resp'] === 'compartilhada com sucesso') {
+    if(result['resp'] === 'ok') {
       this.toggleModalShare();
       this.toggleModalSuccess();
     }
   }
 
-
   async alterarLista(nomeNovaLista) {
     const idLista = document.querySelector('#idLista').textContent;
     const result = await this.itensService.alteraLista(nomeNovaLista, idLista);
-    alert(result['resp']);
-    this.toggleModalNome();
+    if(result['resp'] === 'ok') {
+      this.lista.nome = nomeNovaLista;
+      this.toggleModalNome();
+    }
   }
+
   toggleModalAdd() {
       this.isModalActiveAdd = !this.isModalActiveAdd;
   }

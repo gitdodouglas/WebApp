@@ -73,7 +73,7 @@ patchOpNLista lid novoNomeLista = do
         Just (Entity uid usuario) -> do
             _ <- runDB $ get404 lid
             runDB $ update lid [ ListaNome =. novoNomeLista]
-            sendStatusJSON ok200 (object ["resp" .= ("Lista alterada com sucesso"::Text)])
+            sendStatusJSON ok200 (object ["resp" .= ("ok"::Text)])
         _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
 
 -- deleta uma lista pelo id

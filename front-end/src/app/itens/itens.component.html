@@ -103,8 +103,17 @@
                 </div>
                 <footer class="card-footer">
                     <a class="card-footer-item" (click)="toggleModalShare()">Cancelar</a>
-                    <a class="card-footer-item" (click)="compartilharLista(inputShareEmail.value)" >Compartilhar</a>
+                    <a class="card-footer-item" (click)="compartilharLista(inputShareEmail.value); inputShareEmail.value=''" >Compartilhar</a>
                 </footer>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" [ngClass]="{'is-active' : isModalActiveSuccess}">
+        <div class="modal-background" (click)="toggleModalSuccess()"></div>
+        <div class="modal-content">
+            <div class="box">
+                <p class="has-text-centered subtitle">Lista compartilhada com sucesso!</p>
             </div>
         </div>
     </div>

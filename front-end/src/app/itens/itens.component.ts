@@ -85,6 +85,13 @@ export class ItensComponent implements OnInit {
     this.toggleModalShare();
   }
 
+
+  async alterarLista(nomeNovaLista) {
+    const idLista = document.querySelector('#idLista').textContent;
+    const result = await this.itensService.alteraLista(nomeNovaLista, idLista);
+    alert(result['resp']);
+    this.toggleModalNome();
+  }
   toggleModalAdd() {
       this.isModalActiveAdd = !this.isModalActiveAdd;
   }

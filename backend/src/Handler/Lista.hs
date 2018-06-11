@@ -23,7 +23,10 @@ optionsCadListR :: Handler()
 optionsCadListR = anyOriginIn [ F.OPTIONS, F.POST ]
 
 optionsOpListR :: ListaId -> Handler ()
-optionsOpListR _ = anyOriginIn [ F.OPTIONS, F.POST, F.GET, F.PUT, F.DELETE ]
+optionsOpListR _ = anyOriginIn [ F.OPTIONS, F.POST, F.GET, F.DELETE ]
+
+optionsOpNLista :: ListaId -> Text -> Handler ()
+optionsOpNLista _ _ = anyOriginIn [ F.OPTIONS, F.PATCH ]
 --------------------------------------
 
 
@@ -61,12 +64,17 @@ getListasUserR = do
         _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
 
 -- atualiza todos os campos de uma lista pelo id
-putOpListR :: ListaId -> Handler Value
-putOpListR lid = do
-    _ <- runDB $ get404 lid
-    listaNova <- requireJsonBody :: Handler Lista
-    runDB $ replace lid listaNova
-    sendStatusJSON noContent204 (object [])
+patchOpNLista :: ListaId -> Text -> Handler Value
+patchOpNLista lid novoNomeLista = do
+    anyOriginIn [ F.OPTIONS, F.PATCH ]
+    token <- getTokenHeader
+    maybeUser <- runDB $ selectFirst [UsuarioToken ==. token] []
+    case maybeUser of
+        Just (Entity uid usuario) -> do
+            _ <- runDB $ get404 lid
+            runDB $ update lid [ ListaNome =. novoNomeLista]
+            sendStatusJSON ok200 (object ["resp" .= ("Lista alterada com sucesso"::Text)])
+        _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
 
 -- deleta uma lista pelo id
 deleteOpListR :: ListaId -> Handler Value

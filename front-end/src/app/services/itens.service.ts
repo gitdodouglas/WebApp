@@ -24,6 +24,10 @@ export class ItensService {
     return await this.http.post('http://localhost:8080/cLista/' + listaid + '/' + email, {}).toPromise();
   }
 
+  async alteraLista(nomeListNova, idLista) {
+    return await this.http.patch('http://localhost:8080/operacao/nomelista/' + idLista + '/' + nomeListNova, {}).toPromise();
+  }
+
   colocaProdutoLista(vlunitario, qtditem, descricao, listaid, produtoid ): Observable<Item> {
     // tslint:disable-next-line:max-line-length
     const data = '{"vlunitario":' + vlunitario + ', "qtditem":' + qtditem + ', "descricao":"' + descricao + '","listaid":' + listaid + ', "produtoid":' + produtoid + ' }';

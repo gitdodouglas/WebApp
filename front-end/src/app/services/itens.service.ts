@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Item } from '../item';
 import { Produto } from '../produto';
+import { Lista } from '../lista';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,13 @@ export class ItensService {
     console.log(data);
     return this.http.post<Item>('http://localhost:8080/cadastra/itemProduto', data);
   }
+
   deleteItem(item): Observable<Item> {
     return this.http.delete<Item>('http://localhost:8080/operacao/item/' + item['listaId'] + '/' + item['produtoId'], {} );
   }
+
+  deleteLista(id): Observable<Lista> {
+    return this.http.delete<Lista>('http://localhost:8080/operacao/lista/' + id);
+  }
+
 }

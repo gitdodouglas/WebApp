@@ -93,12 +93,17 @@ patchOpTLista lid total = do
             sendStatusJSON ok200 (object ["resp" .= ("ok"::Text)])
         _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
 
--- deleta uma lista pelo id
+-- deleta uma lista (em cascata) pelo id
 deleteOpListR :: ListaId -> Handler Value
 deleteOpListR lid = do
-    _ <- runDB $ get404 lid
-    runDB $ delete lid
-    sendStatusJSON noContent204 (object [])
+    token <- getTokenHeader
+    maybeUser <- runDB $ selectFirst [UsuarioToken ==. token] []
+    case maybeUser of
+        Just (Entity uid usuario) -> do
+            anyOriginIn [ F.OPTIONS, F.DELETE ]
+            runDB $ deleteCascade lid
+            sendStatusJSON ok200 (object ["resp" .= ("ok"::Text)])
+        _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
 
 -- recupera uma lista pelo id
 getOpListR :: ListaId -> Handler Value

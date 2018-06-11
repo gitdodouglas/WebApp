@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -24,6 +25,7 @@ export class ItensComponent implements OnInit {
   isModalActiveNome = false;
   isModalActiveShare = false;
   isModalActiveSuccess = false;
+  isModalActiveConfirm = false;
   idProduto: number;
   order = 'nome';
   reverse = false;
@@ -32,6 +34,7 @@ export class ItensComponent implements OnInit {
     private route: ActivatedRoute,
     private itensService: ItensService,
     private location: Location,
+    private router: Router,
     private listaService: ListaService,
     private orderPipe: OrderPipe
   ) { }
@@ -78,6 +81,11 @@ export class ItensComponent implements OnInit {
     this.itensService.deleteItem(item).subscribe(); // arrumar o JSON para encaixar certo na classe ITEM
   }
 
+  removeLista(): void {
+    const idLista = document.querySelector('#idLista').textContent;
+    this.itensService.deleteLista(idLista).subscribe(lista => {console.log(lista); this.locationBack()});
+  }
+
   async compartilharLista(email) {
     const idLista = document.querySelector('#idLista').textContent;
     const result = await this.itensService.compartilha(email, idLista);
@@ -119,6 +127,10 @@ export class ItensComponent implements OnInit {
 
   toggleModalSuccess() {
       this.isModalActiveSuccess = !this.isModalActiveSuccess;
+  }
+
+  toggleModalConfirm() {
+      this.isModalActiveConfirm = !this.isModalActiveConfirm;
   }
 
   locationBack() {

@@ -73,7 +73,7 @@
                 <ul class="has-text-centered">
                     <li><a (click)="toggleModalNome(); toggleModalOpcoes()">Alterar o nome da lista</a></li>
                     <li><a (click)="toggleModalShare(); toggleModalOpcoes()">Compartilhar lista</a></li>
-                    <li><a>APAGAR LISTA</a></li>
+                    <li><a (click)="toggleModalConfirm(); toggleModalOpcoes()">APAGAR LISTA</a></li>
                 </ul>
             </div>
         </div>
@@ -113,7 +113,21 @@
         <div class="modal-background" (click)="toggleModalSuccess()"></div>
         <div class="modal-content">
             <div class="box">
-                <p class="has-text-centered subtitle">Lista compartilhada com sucesso!</p>
+                <p class="has-text-centered has-text-success subtitle">Lista compartilhada com sucesso!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" [ngClass]="{'is-active' : isModalActiveConfirm}">
+        <div class="modal-background" (click)="toggleModalConfirm()"></div>
+        <div class="modal-content">
+            <div class="box">
+                <p class="has-text-centered has-text-danger subtitle">Você tem certeza que deseja apagar essa lista?</p>
+                <p class="has-text-centered has-text-danger subtitle"><sup>ATENÇÃO<br>Todos os itens serão apagados!</sup></p>
+                <footer class="card-footer">
+                    <a class="card-footer-item" (click)="toggleModalConfirm()">Não</a>
+                    <a class="card-footer-item" (click)="removeLista()">Sim</a>
+                </footer>
             </div>
         </div>
     </div>

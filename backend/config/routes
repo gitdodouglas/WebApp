@@ -25,6 +25,7 @@
 /recupera/produto/#ListaId          RecProdR        OPTIONS GET
 
 /operacao/nomelista/#ListaId/#Text  OpNLista        OPTIONS PATCH
+/operacao/totallista/#ListaId/#Text OpTLista        OPTIONS PATCH
 /operacao/lista/#ListaId            OpListR         OPTIONS GET DELETE -- pega uma lista especifica
 /operacao/possui/#PossuiId          OpPossR         GET PUT DELETE
 /operacao/item/#ListaId/#ProdutoId  OpItemR         OPTIONS DELETE --

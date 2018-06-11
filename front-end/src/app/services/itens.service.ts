@@ -28,6 +28,10 @@ export class ItensService {
     return await this.http.patch('http://localhost:8080/operacao/nomelista/' + idLista + '/' + nomeListNova, {}).toPromise();
   }
 
+  async alteraTotalLista(novoTotal, idLista) {
+    return await this.http.patch('http://localhost:8080/operacao/totallista/' + idLista + '/' + novoTotal, {}).toPromise();
+  }
+
   colocaProdutoLista(vlunitario, qtditem, descricao, listaid, produtoid ): Observable<Item> {
     // tslint:disable-next-line:max-line-length
     const data = '{"vlunitario":' + vlunitario + ', "qtditem":' + qtditem + ', "descricao":"' + descricao + '","listaid":' + listaid + ', "produtoid":' + produtoid + ' }';

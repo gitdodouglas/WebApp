@@ -11,6 +11,7 @@ import Network.Wai as NW
 import Database.Persist.Postgresql
 import qualified Data.Text as T
 import qualified Data.Maybe as M
+import Prelude (read)
 
 --------------------------------------
 optionsListasUserR :: Handler ()
@@ -27,6 +28,9 @@ optionsOpListR _ = anyOriginIn [ F.OPTIONS, F.POST, F.GET, F.DELETE ]
 
 optionsOpNLista :: ListaId -> Text -> Handler ()
 optionsOpNLista _ _ = anyOriginIn [ F.OPTIONS, F.PATCH ]
+
+optionsOpTLista :: ListaId -> Text -> Handler ()
+optionsOpTLista _ _ = anyOriginIn [ F.OPTIONS, F.PATCH ]
 --------------------------------------
 
 
@@ -63,7 +67,7 @@ getListasUserR = do
             sendStatusJSON ok200 (object ["resp" .= lista])
         _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
 
--- atualiza todos os campos de uma lista pelo id
+-- atualiza o nome da lista pelo id
 patchOpNLista :: ListaId -> Text -> Handler Value
 patchOpNLista lid novoNomeLista = do
     anyOriginIn [ F.OPTIONS, F.PATCH ]
@@ -72,7 +76,20 @@ patchOpNLista lid novoNomeLista = do
     case maybeUser of
         Just (Entity uid usuario) -> do
             _ <- runDB $ get404 lid
-            runDB $ update lid [ ListaNome =. novoNomeLista]
+            runDB $ update lid [ListaNome =. novoNomeLista]
+            sendStatusJSON ok200 (object ["resp" .= ("ok"::Text)])
+        _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
+
+-- atualiza o valor total da lista pelo id
+patchOpTLista :: ListaId -> Text -> Handler Value
+patchOpTLista lid total = do
+    anyOriginIn [ F.OPTIONS, F.PATCH ]
+    token <- getTokenHeader
+    maybeUser <- runDB $ selectFirst [UsuarioToken ==. token] []
+    case maybeUser of
+        Just (Entity uid usuario) -> do
+            _ <- runDB $ get404 lid
+            runDB $ update lid [ListaTotal =. (read $ unpack total)]
             sendStatusJSON ok200 (object ["resp" .= ("ok"::Text)])
         _ -> sendStatusJSON forbidden403 (object [ "resp" .= ("acao proibida"::Text)])
 

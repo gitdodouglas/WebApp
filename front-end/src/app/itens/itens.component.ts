@@ -45,20 +45,20 @@ export class ItensComponent implements OnInit {
   getItens(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.itensService.getItens(id)
-      .subscribe(itens => {console.log(itens); this.itens = itens['resp']['produtoLista']; });
+      .subscribe(itens => {console.log(itens); this.itens = itens['resp']['produtoLista'];});
   }
 
   getLista(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.listaService.getLista(id)
-      .subscribe(lista => { lista['resp']['id'] = id; this.lista = lista['resp']; });
+      .subscribe(lista => { lista['resp']['id'] = id; this.lista = lista['resp'];});
   }
 
   getProdutos(): void {
     const idLista = document.querySelector('#idLista').textContent;
     console.log(idLista);
     this.itensService.getProdutos(idLista)
-      .subscribe(produtos => {console.log(produtos); this.produtos = produtos['resp']; });
+      .subscribe(produtos => {console.log(produtos); this.produtos = produtos['resp'];});
   }
 
   pegaId(idProduto): void {
@@ -68,7 +68,7 @@ export class ItensComponent implements OnInit {
   adicionaProduto(qtd, vl, desc) {
     const idLista = document.querySelector('#idLista').textContent;
     this.itensService.colocaProdutoLista(vl, qtd, desc, idLista, this.idProduto)
-      .subscribe(produtoNovo => {console.log(produtoNovo); this.itens.push(produtoNovo['resp'][0]); });
+      .subscribe(produtoNovo => {console.log(produtoNovo); this.itens.push(produtoNovo['resp'][0]);});
     this.toggleModalAdd();
   }
 
@@ -94,6 +94,11 @@ export class ItensComponent implements OnInit {
       this.lista.nome = nomeNovaLista;
       this.toggleModalNome();
     }
+  }
+
+  async alterarTotalLista(novoTotal) {
+    const idLista = document.querySelector('#idLista').textContent;
+    const result = await this.itensService.alteraTotalLista(novoTotal, idLista);
   }
 
   toggleModalAdd() {

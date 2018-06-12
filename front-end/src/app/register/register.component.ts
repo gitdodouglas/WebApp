@@ -8,6 +8,8 @@ import { RegisterService } from '../services/register.service';
 })
 export class RegisterComponent implements OnInit {
 
+  isModalActiveSuccess = false;
+
   constructor(private registerService: RegisterService) { }
 
   ngOnInit() {
@@ -18,6 +20,13 @@ export class RegisterComponent implements OnInit {
     console.log();
     const result = await this.registerService.postCadastro(email, senha, nome);
     console.log(result); // colocar o token no storage
+    if(result != null) {
+      this.toggleModalSuccess();
+    }
+  }
+
+  toggleModalSuccess() {
+      this.isModalActiveSuccess = !this.isModalActiveSuccess;
   }
 
 }
